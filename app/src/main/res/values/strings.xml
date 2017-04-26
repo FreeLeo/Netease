@@ -1,9 +1,24 @@
 <resources>
-    <string name="app_name">网易新闻</string>
-    <string name="index_name">網易</string>
+    <string name="app_name">雄安新闻</string>
+    <string name="index_name">雄安</string>
+
+    <string-array name="tabs">
+        <item>首页</item>
+        <item>要闻</item>
+        <item>话题</item>
+        <item>我的</item>
+    </string-array>
+
+    <string-array name="tabs_titles">
+        <item>雄安</item>
+        <item>要闻</item>
+        <item>话题</item>
+        <item>我的</item>
+    </string-array>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">设置</string>
+    <string name="action_publish">发布</string>
     <string-array name="titles">
         <item>Android</item>
         <item>For</item>
@@ -11,4 +26,5 @@
     </string-array>
 
     <string name="votezero">0跟帖</string>
+    <string name="vote_write">写跟帖</string>
 </resources>

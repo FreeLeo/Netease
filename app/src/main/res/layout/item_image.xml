@@ -59,7 +59,7 @@
             <!--android:scaleType="centerCrop"/>-->
     <!--</LinearLayout>-->
 
-    <com.hhxplaying.neteasedemo.netease.widget.MyRecyclerView
+    <com.xiongan.develop.news.widget.MyRecyclerView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_big_image_item_height"

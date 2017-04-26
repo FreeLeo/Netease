@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     android:background="@color/fragment_background"
     >
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefreshlayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="vertical"
+        >
     <android.support.v7.widget.RecyclerView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -13,4 +19,5 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

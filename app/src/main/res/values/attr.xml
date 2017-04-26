@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="icon1" format="reference" />
+    <attr name="color1" format="color" />
+    <attr name="text" format="string" />
+    <attr name="text_size" format="dimension" />
+
+    <declare-styleable name="ChangeColorIconView">
+        <attr name="icon" />
+        <attr name="color" />
+        <attr name="text" />
+        <attr name="text_size" />
+    </declare-styleable>
+
+    <declare-styleable name="roundedimageview">
+        <attr name="border_thickness" format="dimension" />
+        <attr name="border_inside_color" format="color" />
+        <attr name="border_outside_color" format="color"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="LJAdverView">
+        <attr name="gap" format="integer" />
+        <attr name="animDuration" format="integer" />
+    </declare-styleable>
+</resources>

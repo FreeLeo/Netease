@@ -78,4 +78,7 @@
     <color name="umeng_fb_color_btn_pressed">#ff1495f7</color>
     <color name="umeng_fb_color_btn_normal">#ff333333</color>
     <color name="light_black">#dfdfdf</color>
+
+    <color name="_999">#999999</color>
+    <color name="vote_send_enable">#1495f7</color>
 </resources>

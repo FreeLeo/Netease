@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:imagecontrol="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:gravity="center_vertical">
+        <com.xiongan.develop.news.widget.MaskedImage
+            android:id="@+id/portrait_tv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/shiwan"
+            imagecontrol:border_inside_color="#ffffff"
+            imagecontrol:border_outside_color="#ecf0f1"
+            imagecontrol:border_thickness="1dp" />
+        <TextView
+            android:id="@+id/des_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="大雄队长发表的热门文章"
+            android:textColor="#919da4"
+            android:textSize="14sp"
+            android:paddingLeft="10dp"/>
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/des_iv"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/load_fail"/>
+
+    <TextView
+        android:id="@+id/title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#212121"
+        android:textSize="18sp"
+        android:text="我的天空"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"/>
+
+    <TextView
+        android:id="@+id/content_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:textColor="#333333"
+        android:textSize="15sp"
+        android:text="再见我的爱，I Wanna Say Goodbye，再见我的过去，I Want a New Life，再见我的眼泪跌倒和失败，再见那个年少轻狂的时代，再见的的烦恼 不再孤单，再见我的懦弱 不再哭喊，Now I wanna say，我的未来，在无尽的黑夜，所有都快要毁灭，至少我还有梦，也为你而感动，原来黎明的起点，就在我的心里面"/>
+
+    <TextView
+        android:id="@+id/comment_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#919da4"
+        android:textSize="14sp"
+        android:text="855赞同 3424评论"
+        android:paddingTop="5dp"
+        android:paddingBottom="10dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line_color">
+    </View>
+
+</LinearLayout>
