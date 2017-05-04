@@ -25,6 +25,7 @@
         <item>Fighting</item>
     </string-array>
 
+    <string name="vote_nav_title">跟帖</string>
     <string name="votezero">0跟帖</string>
     <string name="vote_write">写跟帖</string>
 </resources>
