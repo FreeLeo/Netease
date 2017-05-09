@@ -61,7 +61,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="25dp"
                         android:layout_marginLeft="20dp"
-                        android:src="@drawable/shiwan"
+                        android:src="@drawable/default_portrait"
                         imagecontrol:border_inside_color="#ffffff"
                         imagecontrol:border_outside_color="#ecf0f1"
                         imagecontrol:border_thickness="1dp" />

@@ -2,34 +2,20 @@ package com.xiongan.develop.news.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.Response;
-import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-import com.google.gson.Gson;
 import com.xiongan.develop.news.R;
-import com.xiongan.develop.news.activity.ImageDisplayActivity;
-import com.xiongan.develop.news.activity.NewsDisplayActivity;
+import com.xiongan.develop.news.activity.VoteActivity;
 import com.xiongan.develop.news.bean.OneNewsItemBean;
 import com.xiongan.develop.news.bean.imageextra.PhotoSet;
-import com.xiongan.develop.news.config.Global;
-import com.xiongan.develop.news.factory.RequestSingletonFactory;
-import com.xiongan.develop.news.util.NeteaseURLParse;
 import com.xiongan.develop.news.vollley.MySingleton;
-import com.xiongan.develop.news.widget.MyRecyclerView;
 import com.xiongan.develop.news.widget.SwitchImage;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -81,6 +67,12 @@ public class TopicRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
         return position;
     }
 
+    protected void onItemClick(int position) {
+        Intent intent = new Intent(mContext, VoteActivity.class);
+        mContext.startActivity(intent);
+    }
+
+
     public static class BannerViewHold extends RecyclerView.ViewHolder {
         SwitchImage mSwitchImage;
 
@@ -98,7 +90,7 @@ public class TopicRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
                 MySingleton.getInstance(mContext.getApplicationContext()).getImageLoader());
     }
 
-    public static class SingleImageViewHolder extends RecyclerView.ViewHolder {
+    public class SingleImageViewHolder extends RecyclerView.ViewHolder {
         ImageView portraitIv;
         TextView desTv;
         ImageView desIv;
@@ -107,6 +99,13 @@ public class TopicRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
         TextView commentTv;
         public SingleImageViewHolder(View itemView) {
             super(itemView);
+            //添加Item的点击事件
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClick(getAdapterPosition());
+                }
+            });
             portraitIv = (ImageView) itemView.findViewById(R.id.portrait_tv);
             desTv = (TextView) itemView.findViewById(R.id.des_tv);
             desIv = (ImageView) itemView.findViewById(R.id.des_iv);
