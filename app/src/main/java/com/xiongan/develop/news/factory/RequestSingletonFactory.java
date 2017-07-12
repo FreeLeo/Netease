@@ -4,17 +4,17 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkError;
 import com.android.volley.NetworkResponse;
-import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.error.AuthFailureError;
+import com.android.volley.error.NetworkError;
+import com.android.volley.error.NoConnectionError;
+import com.android.volley.error.ParseError;
+import com.android.volley.error.ServerError;
+import com.android.volley.error.TimeoutError;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.StringRequest;
 import com.xiongan.develop.news.config.ErrorCode;
 
 import org.cybergarage.http.HTTP;
@@ -70,20 +70,8 @@ public class RequestSingletonFactory {
               return super.parseNetworkResponse(response);
           }
           @Override
-          public Map<String, String> getHeaders() throws AuthFailureError{
+          public Map<String, String> getHeaders() throws AuthFailureError {
               return defaultPairs_baishuku;
-          }
-          @Override
-          public int getDefaultTtl() {
-              return 15 * 24 * 3600 * 1000;
-          }
-          @Override
-          public int getDefaultSoftTtl() {
-              return 1 * 60 * 1000;
-          }
-          @Override
-          public boolean shouldLocalCacheControl() {
-              return true;
           }
       };
     }

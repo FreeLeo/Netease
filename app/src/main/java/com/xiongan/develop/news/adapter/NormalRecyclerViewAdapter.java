@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.ui.NetworkImageView;
 import com.google.gson.Gson;
 import com.xiongan.develop.news.R;
 import com.xiongan.develop.news.activity.ImageDisplayActivity;

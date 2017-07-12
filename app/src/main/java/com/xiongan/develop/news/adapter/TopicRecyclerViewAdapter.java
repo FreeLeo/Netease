@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.ui.NetworkImageView;
 import com.xiongan.develop.news.R;
 import com.xiongan.develop.news.activity.VoteActivity;
 import com.xiongan.develop.news.bean.OneNewsItemBean;

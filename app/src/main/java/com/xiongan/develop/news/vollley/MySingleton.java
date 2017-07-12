@@ -11,8 +11,8 @@ import com.android.volley.toolbox.Volley;
 public class MySingleton {
     private static MySingleton mInstance;
     private RequestQueue mRequestQueue;
-    private ImageLoader mImageLoader;
     private static Context mCtx;
+    private ImageLoader mImageLoader;
 
     private MySingleton(Context context) {
         mCtx = context;
@@ -33,8 +33,7 @@ public class MySingleton {
                         cache.put(url, bitmap);
                     }
                 });*/
-
-        mImageLoader = new ImageLoader(mRequestQueue,new MyLrnCache(mCtx));
+        mImageLoader = new ImageLoader(mRequestQueue);
     }
 
     public static synchronized MySingleton getInstance(Context context) {
@@ -49,7 +48,7 @@ public class MySingleton {
         if (mRequestQueue == null) {
             // getApplicationContext() is key, it keeps you from leaking the
             // Activity or BroadcastReceiver if someone passes one in.
-            mRequestQueue = Volley.newRequestQueue(mCtx.getApplicationContext(), null, 30 * 1024 * 1024);
+            mRequestQueue = Volley.newRequestQueue(mCtx.getApplicationContext());
         }
         return mRequestQueue;
     }

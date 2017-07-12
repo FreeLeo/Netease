@@ -4,7 +4,7 @@
     android:id="@+id/rlContainer"
     android:layout_height="match_parent"
     android:layout_marginLeft="@dimen/list_margin_top_and_bottom">
-    <com.android.volley.toolbox.NetworkImageView
+    <com.android.volley.ui.NetworkImageView
         android:id="@+id/iv_sub_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

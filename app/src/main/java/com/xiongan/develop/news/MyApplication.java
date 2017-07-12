@@ -3,8 +3,8 @@ package com.xiongan.develop.news;
 import android.app.Application;
 import android.content.Context;
 
-import com.android.volley.VolleyLog;
 import com.xiongan.develop.news.util.ScreenUtil;
+import com.xiongan.develop.news.volleyplus.VolleyPlus;
 
 /**
  * Created by HHX on 15/9/12.
@@ -24,7 +24,7 @@ public class MyApplication extends Application {
         System.out.println(density);
         mInstance = this;
 
-        VolleyLog.DEBUG = true;
+        VolleyPlus.init(this);
     }
 
     public static Context getContext(){

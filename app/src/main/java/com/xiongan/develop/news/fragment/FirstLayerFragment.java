@@ -12,20 +12,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.xiongan.develop.news.R;
-import com.xiongan.develop.news.config.URLs;
-import com.xiongan.develop.news.util.ScreenUtil;
+import com.android.volley.Response;
 import com.shizhefei.fragment.LazyFragment;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.IndicatorViewPager.IndicatorFragmentPagerAdapter;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
+import com.xiongan.develop.news.R;
+import com.xiongan.develop.news.bean.NewsChannel;
+import com.xiongan.develop.news.transcation.NewsChannelsTranscation;
+import com.xiongan.develop.news.util.ScreenUtil;
+import com.xiongan.develop.news.volleyplus.HttpCallback;
+
+import java.util.List;
 
 public class FirstLayerFragment extends LazyFragment {
 	private IndicatorViewPager indicatorViewPager;
 	private LayoutInflater inflate;
 	private int index;
+    private List<NewsChannel> channelList;
 	private final int textPadding = 20;//dp
 	private final int barWidth = 42;//dp
 
@@ -62,9 +68,10 @@ public class FirstLayerFragment extends LazyFragment {
 
 		// 注意这里 的FragmentManager 是 getChildFragmentManager(); 因为是在Fragment里面
 		// 而在activity里面用FragmentManager 是 getSupportFragmentManager()
-		indicatorViewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
+//		indicatorViewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
 
 		Log.d("cccc", "Fragment 将要创建View " + this);
+        getNewsChannel();
 	}
 
 	@Override
@@ -91,6 +98,32 @@ public class FirstLayerFragment extends LazyFragment {
 		Log.d("cccc", "Fragment所在的Activity onPause, onPauseLazy " + this);
 	}
 
+	private void getNewsChannel(){
+		HttpCallback callback = new HttpCallback() {
+			@Override
+			public void onSuccess(int code, String msg, Object data) {
+				channelList = (List<NewsChannel>) data;
+				indicatorViewPager.setAdapter(new MyAdapter(getChildFragmentManager(),channelList));
+			}
+
+			@Override
+			public void onFailure(int code, String msg, Object data) {
+
+			}
+		};
+		new NewsChannelsTranscation(callback).excute();
+    }
+
+    private Response.Listener<NewsChannel> createNewsChannelsListener(){
+        return new Response.Listener<NewsChannel>(){
+
+            @Override
+            public void onResponse(NewsChannel response) {
+
+            }
+        };
+    }
+
 	@Override
 	protected void onDestroyViewLazy() {
 		super.onDestroyViewLazy();
@@ -104,14 +137,16 @@ public class FirstLayerFragment extends LazyFragment {
 	}
 
 	private class MyAdapter extends IndicatorFragmentPagerAdapter {
+		private List<NewsChannel> channelList;
 
-		public MyAdapter(FragmentManager fragmentManager) {
+		public MyAdapter(FragmentManager fragmentManager,List<NewsChannel> channels) {
 			super(fragmentManager);
+			this.channelList = channels;
 		}
 
 		@Override
 		public int getCount() {
-			return URLs.tabName.length;
+			return channelList.size();
 		}
 
 		@Override
@@ -120,7 +155,7 @@ public class FirstLayerFragment extends LazyFragment {
 				convertView = inflate.inflate(R.layout.tab_top, container, false);
 			}
 			TextView textView = (TextView) convertView;
-			textView.setText(URLs.tabName[position]);
+			textView.setText(channelList.get(position).name);
 			textView.setPadding(ScreenUtil.dp2px(getActivity(), textPadding), 0, ScreenUtil.dp2px(getActivity(), textPadding), 0);
 			return convertView;
 		}
@@ -129,7 +164,7 @@ public class FirstLayerFragment extends LazyFragment {
 		public Fragment getFragmentForPage(int position) {
 			SecondLayerFragment mainFragment = new SecondLayerFragment();
 			Bundle bundle = new Bundle();
-			bundle.putString(SecondLayerFragment.INTENT_STRING_TABNAME, URLs.tabName[position]);
+			bundle.putString(SecondLayerFragment.INTENT_STRING_TABNAME, channelList.get(position).name);
 			bundle.putInt(SecondLayerFragment.INTENT_INT_POSITION, position);
 			mainFragment.setArguments(bundle);
 			return mainFragment;

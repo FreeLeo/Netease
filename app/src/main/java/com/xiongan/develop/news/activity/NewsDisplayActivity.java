@@ -2,6 +2,7 @@ package com.xiongan.develop.news.activity;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
@@ -44,6 +45,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.xiongan.develop.news.R.id.vote_num_tv;
+
 
 /**
  * Created by HHX on 15/9/10.
@@ -52,12 +55,14 @@ public class NewsDisplayActivity extends AppCompatActivity {
     private final String TAG = NewsDisplayActivity.class.getSimpleName();
     @BindView(R.id.vote_et)
     EditText voteEt;
-    @BindView(R.id.vote_num_tv)
+    @BindView(vote_num_tv)
     TextView voteNumTv;
     @BindView(R.id.vote_send_tv)
     TextView voteSendTv;
     @BindView(R.id.content_view)
     LinearLayout contentView;
+    @BindView(R.id.tv_vote)
+    TextView voteTv;
     private SystemBarTintManager tintManager;
     private Context context;
     private TextView content;
@@ -179,12 +184,12 @@ public class NewsDisplayActivity extends AppCompatActivity {
         voteEt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                Log.e(TAG,"voteEt focus : "+hasFocus);
-                if(hasFocus){
+                Log.e(TAG, "voteEt focus : " + hasFocus);
+                if (hasFocus) {
                     voteEt.setText(voteStr);
                     voteNumTv.setVisibility(View.GONE);
                     voteSendTv.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     voteStr = voteEt.getText().toString();
                     voteEt.setText("");
                     voteNumTv.setVisibility(View.VISIBLE);
@@ -247,13 +252,14 @@ public class NewsDisplayActivity extends AppCompatActivity {
         content.setText(Html.fromHtml(body, new PicassoImageGetter(content), null));
         content.setTextSize(16);
 
-        voteNumTv.setText(hold.getThreadVote()+"");
+        voteTv.setText(hold.getThreadVote() + "跟帖");
+        voteNumTv.setText("跟帖："+hold.getThreadVote() + "");
     }
 
-    @OnClick({R.id.vote_num_tv, R.id.vote_send_tv})
+    @OnClick({vote_num_tv, R.id.vote_send_tv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.vote_num_tv:
+            case vote_num_tv:
                 break;
             case R.id.vote_send_tv:
                 break;
@@ -281,14 +287,14 @@ public class NewsDisplayActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(event);
     }
 
-    private void hideSoftKeyboard(View view){
+    private void hideSoftKeyboard(View view) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0); //强制隐藏键盘
     }
 
-    private void showSoftKeyboard(View view){
+    private void showSoftKeyboard(View view) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(view,InputMethodManager.SHOW_FORCED);
+        imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
     }
 
     private View findViewFocus(ViewGroup viewGroup, MotionEvent event) {
@@ -307,5 +313,11 @@ public class NewsDisplayActivity extends AppCompatActivity {
             }
         }
         return null;
+    }
+
+    @OnClick(R.id.tv_vote)
+    public void onViewClicked() {
+        Intent intent = new Intent(this, VoteActivity.class);
+        startActivity(intent);
     }
 }

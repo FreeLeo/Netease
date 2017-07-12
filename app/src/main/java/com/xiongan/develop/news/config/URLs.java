@@ -6,9 +6,30 @@ import java.lang.reflect.Field;
 
 /**
  * Created by HHX on 15/8/20.
- *
  */
 public class URLs {
+    public static final String DOMAIN_NAME = "http://rapapi.org/mockjsdata/16816";
+
+    //频道列表
+    public static final String NEWS_CHANNELS = DOMAIN_NAME + "/endpoint/xa-channels?";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //***********************************************************************************************************************************
+
     public static final String INDEX_URL = "http://c.m.163.com/nc/article/headline/T1348647909107/0-20.html";
 //    public static final String INDEX_TAG = "T1348647909107";
     public static final String IMAGE_JSON_URL = "http://c.3g.163.com/photo/api/set/";
@@ -90,6 +111,9 @@ public class URLs {
     public static final String XiaoXiId = "T1371543208049";
     //评论
     public static final String CommonUrl = host + "nc/article/list/";
+    public static String KEY_RETCODE = "code";
+    public static String KEY_RETDESC = "message";
+    public static String KEY_RESTULT = "info";
 
 
     public static String getUrl(String key) {

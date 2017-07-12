@@ -12,7 +12,7 @@
         android:layout_height="@dimen/list_item_text_image_height"
         android:orientation="horizontal">
 
-        <com.android.volley.toolbox.NetworkImageView
+        <com.android.volley.ui.NetworkImageView
             android:id="@+id/iv_left_image"
             android:layout_width="@dimen/list_item_text_image_weight"
             android:layout_height="match_parent"
