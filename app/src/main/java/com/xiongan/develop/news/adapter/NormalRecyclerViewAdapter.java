@@ -12,26 +12,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.Response;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.ui.NetworkImageView;
-import com.google.gson.Gson;
 import com.xiongan.develop.news.R;
 import com.xiongan.develop.news.activity.ImageDisplayActivity;
 import com.xiongan.develop.news.activity.NewsDisplayActivity;
 import com.xiongan.develop.news.bean.OneNewsItemBean;
 import com.xiongan.develop.news.bean.imageextra.PhotoSet;
-import com.xiongan.develop.news.config.Global;
-import com.xiongan.develop.news.factory.RequestSingletonFactory;
+import com.xiongan.develop.news.bean.imageextra.photos;
+import com.xiongan.develop.news.bean.imgextra;
 import com.xiongan.develop.news.util.NeteaseURLParse;
 import com.xiongan.develop.news.vollley.MySingleton;
 import com.xiongan.develop.news.widget.MyRecyclerView;
 import com.xiongan.develop.news.widget.SwitchImage;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by HHX on 15/9/9.
@@ -89,21 +85,24 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        OneNewsItemBean bean = listItem.get(position);
         if (holder instanceof TextViewHolder) {
             if (listItem.size() - 1 >= position) {
                 ((TextViewHolder) holder).mTitle.setText(listItem.get(position).getTitle());
                 ((TextViewHolder) holder).mSubTitle.setText(listItem.get(position).getSource());
-                ((TextViewHolder) holder).mVote.setText(listItem.get(position).getReplyCount() + "跟帖");
+                ((TextViewHolder) holder).mVote.setText(listItem.get(position).votecount + "跟帖");
 
                 NetworkImageView tempImage = ((TextViewHolder) holder).mImageView;
-                setNetworkImageView(tempImage, NeteaseURLParse.parseWebpImageForTextAndImageType(listItem.get(position).getImgsrc(), tempImage.getWidth()));
+                if(bean.getImgextra() != null && bean.getImgextra().size() > 0) {
+                    setNetworkImageView(tempImage, bean.getImgextra().get(0).getImgsrc());
+                }
                 Log.i(TAG, "onBindViewHolder TextViewHolder");
                 ((TextViewHolder) holder).v.setOnClickListener(new TextViewHolderListener(position));
             }
 
         } else if (holder instanceof ImageViewHolder) {
             ((ImageViewHolder) holder).mTextView.setText(listItem.get(position).getTitle());
-            ((ImageViewHolder) holder).mVote.setText(listItem.get(position).getReplyCount() + "跟帖");
+            ((ImageViewHolder) holder).mVote.setText(listItem.get(position).votecount + "跟帖");
 
 //            setNetworkImageView(((ImageViewHolder) holder).imageView1, listItem.get(position).getImgsrc());
 //            setNetworkImageView(((ImageViewHolder) holder).imageView2, listItem.get(position).getImgextra().get(0).getImgsrc());
@@ -111,18 +110,23 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             String jsonString = NeteaseURLParse.parseJSONUrlOFPhotoset(listItem.get(position));
 
             MyRecyclerView hold = ((ImageViewHolder) holder).mRecyclerView;
-            if (hold.getAdapter() != null && hold.getAdapter() instanceof HorizontalImageRecyclerViewAdapter) {
-                //单纯设置数据
-                Log.i(TAG, "单纯设置数据");
-                getPhotosetImageJsonURl((HorizontalImageRecyclerViewAdapter) hold.getAdapter(), jsonString);
-            } else {
                 //设置水平适配器
                 Log.i(TAG, "设置水平适配器");
                 hold.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
-                HorizontalImageRecyclerViewAdapter horizontalImageRecyclerViewAdapter = new HorizontalImageRecyclerViewAdapter(mContext, null, hold);
+                List<photos> photos = new ArrayList<>();
+                if(bean.getImgextra() != null){
+                    for(imgextra item:bean.getImgextra()){
+                        photos p = new photos();
+                        p.setImgurl(item.getImgsrc());
+                        photos.add(p);
+                    }
+                }
+                PhotoSet photoSet = new PhotoSet();
+                photoSet.setPhotos(photos);
+                HorizontalImageRecyclerViewAdapter horizontalImageRecyclerViewAdapter = new HorizontalImageRecyclerViewAdapter(mContext, photoSet, hold);
                 hold.setAdapter(horizontalImageRecyclerViewAdapter);
-                getPhotosetImageJsonURl(horizontalImageRecyclerViewAdapter, jsonString);
-            }
+
+
 
 //            hold.setClickable(true);
 //            hold.requestDisallowInterceptTouchEvent(true);
@@ -136,34 +140,19 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             //正常加载数据
             else {
                 if (listItem.size() >= 1 && listItem.get(0).getOrder() == 1) {
-                    OneNewsItemBean hold = listItem.get(0);
-
-                    //此处为了防止有的栏目的banner只有一个图片的情况。
-                    int size = 0;
-                    if (hold.getAdss() != null)
-                        size = hold.getAdss().size() + 1;
-                    else
-                        size = 1;
-                    //memory may leak!
-                    int[] defaultImages2 = new int[size];
-                    String[] urlsStrings = new String[size];
-                    String[] textsStrings = new String[size];
-
-                    for (int i = 0; i < defaultImages2.length; i++) {
-                        defaultImages2[i] = defaultImage;
+                    String[] urlsStrings = null;
+                    int[] defaultImages2 = null;
+                    String[] textsStrings = null;
+                    if(bean.getImgextra() != null && bean.getImgextra().size() > 0) {
+                        urlsStrings = new String[bean.getImgextra().size()];
+                        defaultImages2 = new int[]{defaultImage};
+                        textsStrings = new String[bean.getImgextra().size()];
+                        for(int i=0;i<bean.getImgextra().size();i++){
+                            urlsStrings[i] = bean.getImgextra().get(i).getImgsrc();
+                            textsStrings[i] = bean.getTitle();
+                        }
                     }
 
-                    urlsStrings[0] = NeteaseURLParse.parseWebpImageForTextAndImageType(hold.getImgsrc(), ((BannerViewHold)holder).mSwitchImage.getWidth());
-                    for (int i = 1; i < urlsStrings.length; i++) {
-                        //由size的值保证不越界
-                        urlsStrings[i] = hold.getAdss().get(i - 1).getImgsrc();
-                    }
-
-                    textsStrings[0] = hold.getTitle();
-                    for (int i = 1; i < textsStrings.length; i++) {
-                        //由size的值保证不越界
-                        textsStrings[i] = hold.getAdss().get(i - 1).getTitle();
-                    }
 
                     ((BannerViewHold) holder).mSwitchImage.initPager(defaultImages2, urlsStrings, textsStrings);
 //                    设置是否滚动
@@ -285,27 +274,5 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             mContext.startActivity(i);
         }
     }
-
-    private void getPhotosetImageJsonURl(final HorizontalImageRecyclerViewAdapter adapter, final String url) {
-        MySingleton.getInstance(mContext.getApplicationContext()).getRequestQueue().add(
-                RequestSingletonFactory.getInstance().getGETStringRequest(mContext, url,
-                        new Response.Listener() {
-                    @Override
-                    public void onResponse(Object response) {
-                        JSONObject obj;
-                        try {
-                            obj = new JSONObject(response.toString());
-                            PhotoSet photoSet = new Gson().fromJson(obj.toString(), Global.NewsImageItemType);
-                            Global.extraImageHashMap.put(url, photoSet);
-                            adapter.setPhotoSet(photoSet);
-//                            System.out.println(photoSet);
-                            adapter.notifyDataSetChanged();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }));
-    }
-
 
 }

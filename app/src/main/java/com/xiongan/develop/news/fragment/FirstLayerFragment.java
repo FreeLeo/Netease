@@ -165,6 +165,7 @@ public class FirstLayerFragment extends LazyFragment {
 			SecondLayerFragment mainFragment = new SecondLayerFragment();
 			Bundle bundle = new Bundle();
 			bundle.putString(SecondLayerFragment.INTENT_STRING_TABNAME, channelList.get(position).name);
+			bundle.putString(SecondLayerFragment.INTENT_STRING_TID, channelList.get(position).tid);
 			bundle.putInt(SecondLayerFragment.INTENT_INT_POSITION, position);
 			mainFragment.setArguments(bundle);
 			return mainFragment;

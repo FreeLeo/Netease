@@ -6,26 +6,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
-import com.android.volley.Response;
-import com.google.gson.Gson;
+import com.shizhefei.fragment.LazyFragment;
 import com.xiongan.develop.news.R;
 import com.xiongan.develop.news.adapter.NormalRecyclerViewAdapter;
 import com.xiongan.develop.news.bean.OneNewsItemBean;
-import com.xiongan.develop.news.config.Global;
-import com.xiongan.develop.news.config.URLs;
-import com.xiongan.develop.news.factory.RequestSingletonFactory;
-import com.xiongan.develop.news.vollley.MySingleton;
-import com.shizhefei.fragment.LazyFragment;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.xiongan.develop.news.transcation.NewsListTranscation;
+import com.xiongan.develop.news.volleyplus.HttpCallback;
 
 import java.util.ArrayList;
 
 public class SecondLayerFragment extends LazyFragment implements SwipeRefreshLayout.OnRefreshListener{
 	public static final String INTENT_STRING_TABNAME = "intent_String_tabName";
 	public static final String INTENT_INT_POSITION = "intent_int_position";
+	public static final String INTENT_STRING_TID = "tid";
+	private String tid;
 	private String tabName;
 	private TextView textView;
     private ArrayList<OneNewsItemBean> mOneNewsItemList = new ArrayList<>();
@@ -37,6 +31,7 @@ public class SecondLayerFragment extends LazyFragment implements SwipeRefreshLay
 	@Override
 	protected void onCreateViewLazy(Bundle savedInstanceState) {
 		super.onCreateViewLazy(savedInstanceState);
+		tid = getArguments().getString(INTENT_STRING_TID);
 		tabName = getArguments().getString(INTENT_STRING_TABNAME);
 		setContentView(R.layout.fragment_tabmain_item);
         mRecyclerView = (RecyclerView)findViewById(R.id.rv_recycler_view);
@@ -61,24 +56,41 @@ public class SecondLayerFragment extends LazyFragment implements SwipeRefreshLay
 
 
 	private void getIndexNews() {
-        MySingleton.getInstance(getActivity().getApplicationContext()).getRequestQueue().add(
-                RequestSingletonFactory.getInstance().getGETStringRequest(getActivity(), URLs.getUrl(tabName), new Response.Listener() {
-                    @Override
-                    public void onResponse(Object response) {
-                        JSONObject obj;
-                        try {
-							mSwipeRefreshLayout.setRefreshing(false);
-                            mOneNewsItemList.clear();
-                            obj = new JSONObject(response.toString());
-                            JSONArray itemArray = obj.getJSONArray(URLs.getUrlTag(tabName));
-                            ArrayList<OneNewsItemBean> newsList = new Gson().fromJson(itemArray.toString(), Global.NewsItemType);
-                            mOneNewsItemList.addAll(newsList);
-							normalRecyclerViewAdapter.notifyDataSetChanged();
-						} catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }));
+		HttpCallback callback = new HttpCallback() {
+			@Override
+			public void onSuccess(int code, String msg, Object data) {
+				ArrayList<OneNewsItemBean> newsList = (ArrayList<OneNewsItemBean>) data;
+				if(newsList != null) {
+					mOneNewsItemList.clear();
+					mOneNewsItemList.addAll(newsList);
+				}
+				normalRecyclerViewAdapter.notifyDataSetChanged();
+			}
+
+			@Override
+			public void onFailure(int code, String msg, Object data) {
+
+			}
+		};
+		new NewsListTranscation(tid,callback).excute();
+//        MySingleton.getInstance(getActivity().getApplicationContext()).getRequestQueue().add(
+//                RequestSingletonFactory.getInstance().getGETStringRequest(getActivity(), URLs.getUrl(tabName), new Response.Listener() {
+//                    @Override
+//                    public void onResponse(Object response) {
+//                        JSONObject obj;
+//                        try {
+//							mSwipeRefreshLayout.setRefreshing(false);
+//                            mOneNewsItemList.clear();
+//                            obj = new JSONObject(response.toString());
+//                            JSONArray itemArray = obj.getJSONArray(URLs.getUrlTag(tabName));
+//                            ArrayList<OneNewsItemBean> newsList = new Gson().fromJson(itemArray.toString(), Global.NewsItemType);
+//                            mOneNewsItemList.addAll(newsList);
+//							normalRecyclerViewAdapter.notifyDataSetChanged();
+//						} catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }));
 	}
 
 	@Override

@@ -8,11 +8,12 @@ import java.lang.reflect.Field;
  * Created by HHX on 15/8/20.
  */
 public class URLs {
-    public static final String DOMAIN_NAME = "http://rapapi.org/mockjsdata/16816";
+    public static final String DOMAIN_NAME = "http://222.128.71.35:9082/drupal-7.53/rest";
 
     //频道列表
-    public static final String NEWS_CHANNELS = DOMAIN_NAME + "/endpoint/xa-channels?";
-
+    public static final String NEWS_CHANNELS = DOMAIN_NAME + "/xa-channels";
+    //新闻列表
+    public static final String NEWS_LIST = DOMAIN_NAME + "/xa-channels/0/xa-news";
 
 
 

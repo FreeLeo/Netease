@@ -63,6 +63,8 @@ public class OneNewsItemBean {
 
     private String postid = "";
 
+    public int votecount;
+
     public List<ads> getAdss() {
         return ads;
     }
@@ -214,10 +216,6 @@ public class OneNewsItemBean {
 
     public void setPtime(String ptime) {
         this.ptime = ptime;
-    }
-
-    public int getReplyCount() {
-        return replyCount;
     }
 
     public void setReplyCount(int replyCount) {
