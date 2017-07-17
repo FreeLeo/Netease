@@ -40,13 +40,13 @@ public class SecondLayerFragment extends LazyFragment implements SwipeRefreshLay
         mRecyclerView.setAdapter(normalRecyclerViewAdapter);
 		mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefreshlayout);
 		mSwipeRefreshLayout.setOnRefreshListener(this);
+		getIndexNews();
 	}
 
 
 	@Override
 	protected void onResumeLazy() {
 		super.onResumeLazy();
-		getIndexNews();
 	}
 
 	@Override
