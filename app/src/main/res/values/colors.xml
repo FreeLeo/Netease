@@ -81,4 +81,5 @@
 
     <color name="_999">#999999</color>
     <color name="vote_send_enable">#1495f7</color>
+    <color name="_top">#f8ed5d5d</color>
 </resources>

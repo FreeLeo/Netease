@@ -24,22 +24,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.volley.Response;
-import com.google.gson.Gson;
-import com.google.gson.JsonParseException;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.xiongan.develop.news.R;
 import com.xiongan.develop.news.bean.newstext.Img;
-import com.xiongan.develop.news.bean.newstext.NewRoot;
 import com.xiongan.develop.news.bean.newstext.NewsID;
-import com.xiongan.develop.news.config.Global;
-import com.xiongan.develop.news.factory.RequestSingletonFactory;
-import com.xiongan.develop.news.util.NeteaseURLParse;
-import com.xiongan.develop.news.vollley.MySingleton;
+import com.xiongan.develop.news.transcation.NewsDetailTranscation;
+import com.xiongan.develop.news.volleyplus.HttpCallback;
 import com.xiongan.develop.news.widget.PicassoImageGetter;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,6 +62,7 @@ public class NewsDisplayActivity extends AppCompatActivity {
     private String link;
     private final String template = "<p><img src='LINK'/></p>";
     private String voteStr;
+    private String nid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,39 +105,49 @@ public class NewsDisplayActivity extends AppCompatActivity {
 //        Spanned htmlSpan = Html.fromHtml(body, p, null);
 //        content.setText(htmlSpan);
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            link = extras.getString("NEWS_LINK");
+        if (getIntent() != null) {
+            nid = getIntent().getStringExtra("nid");
         }
-        getNews(link);
+        getNews(nid);
         setVoteView();
     }
 
-    private void getNews(final String link) {
-        MySingleton.getInstance(context.getApplicationContext()).getRequestQueue().add(
-                RequestSingletonFactory.getInstance().getGETStringRequest(context, link,
-                        new Response.Listener() {
-                            @Override
-                            public void onResponse(Object response) {
-                                JSONObject obj;
-                                try {
-                                    String id = NeteaseURLParse.getNewsID(link);
-                                    String hold = response.toString().replace(id, "newsID");
-                                    obj = new JSONObject(hold.toString());
+    private void getNews(final String nid) {
+//        MySingleton.getInstance(context.getApplicationContext()).getRequestQueue().add(
+//                RequestSingletonFactory.getInstance().getGETStringRequest(context, link,
+//                        new Response.Listener() {
+//                            @Override
+//                            public void onResponse(Object response) {
+//                                JSONObject obj;
+//                                try {
+//                                    String id = NeteaseURLParse.getNewsID(link);
+//                                    String hold = response.toString().replace(id, "newsID");
+//                                    obj = new JSONObject(hold.toString());
+//
+//                                    NewRoot newRoot = new Gson().fromJson(obj.toString(), Global.NewRoot);
+//
+//                                    Log.i("RVA", "response: " + response.toString());
+//                                    Log.i("RVA", "newRoot: " + newRoot.toString());
+//
+//                                    updateViewFromJSON(newRoot);
+//
+//                                } catch (JSONException | JsonParseException e) {
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//                        }));
+        HttpCallback callback = new HttpCallback() {
+            @Override
+            public void onSuccess(int code, String msg, Object data) {
+                updateViewFromJSON((NewsID) data);
+            }
 
-                                    NewRoot newRoot = new Gson().fromJson(obj.toString(), Global.NewRoot);
+            @Override
+            public void onFailure(int code, String msg, Object data) {
 
-                                    Log.i("RVA", "response: " + response.toString());
-                                    Log.i("RVA", "newRoot: " + newRoot.toString());
-
-                                    updateViewFromJSON(newRoot);
-
-                                } catch (JSONException | JsonParseException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }));
-
+            }
+        };
+        new NewsDetailTranscation(nid,callback).excute();
     }
 
     private void setVoteView() {
@@ -229,15 +231,14 @@ public class NewsDisplayActivity extends AppCompatActivity {
     }
 
 
-    private void updateViewFromJSON(NewRoot newRoot) {
-        NewsID hold = newRoot.getNewsID();
+    private void updateViewFromJSON(NewsID hold) {
         //设置标题
         title.setText(hold.getTitle());
 
         //设置作者和时间
-        int first = hold.getPtime().indexOf("-");
-        int last = hold.getPtime().lastIndexOf(":");
-        authorAndTime.setText(hold.getSource() + "    " + hold.getPtime().substring(first + 1, last));
+//        int first = hold.getPtime().indexOf("-");
+//        int last = hold.getPtime().lastIndexOf(":");
+//        authorAndTime.setText(hold.getSource() + "    " + hold.getPtime().substring(first + 1, last));
 
         //设置正文
         String body = hold.getBody();

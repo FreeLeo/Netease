@@ -162,6 +162,7 @@ public class FirstLayerFragment extends LazyFragment {
 
 		@Override
 		public Fragment getFragmentForPage(int position) {
+
 			SecondLayerFragment mainFragment = new SecondLayerFragment();
 			Bundle bundle = new Bundle();
 			bundle.putString(SecondLayerFragment.INTENT_STRING_TABNAME, channelList.get(position).name);

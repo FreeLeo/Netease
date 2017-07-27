@@ -12,7 +12,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.android.volley.ui.NetworkImageView;
+import com.android.volley.toolbox.NetworkImageView;
 import com.xiongan.develop.news.MyApplication;
 import com.xiongan.develop.news.R;
 import com.xiongan.develop.news.activity.ImageDisplayActivity;

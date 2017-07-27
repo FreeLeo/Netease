@@ -47,6 +47,9 @@ public abstract class BaseJsonTransaction extends BaseTranscation{
 	public Request<JSONObject> process(int method) {
 		url = getApiUrl();
 		prepareRequest();
+		if(method == Method.GET){
+			url = getUrlWithQueryString(url);
+		}
 		try {
 			jsonObjectRequest = new JSONObjectRequest(method, url, params, responseListener, errorListener);			
 			jsonObjectRequest.setShouldCache(shouldCache);

@@ -67,7 +67,6 @@ public abstract class HeroBaseAdapter<T> extends RecyclerView.Adapter<HeroBaseAd
      */
     public abstract int getItemLayoutID(int viewType);
 
-
     @Override
     public int getItemCount() {
         return mBeans.size();
@@ -91,6 +90,10 @@ public abstract class HeroBaseAdapter<T> extends RecyclerView.Adapter<HeroBaseAd
     public void clear() {
         mBeans.clear();
         notifyDataSetChanged();
+    }
+
+    public T getItem(int i){
+        return mBeans.get(i);
     }
 
     /***

@@ -1,11 +1,12 @@
 package com.xiongan.develop.news.volleyplus;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
-import com.android.volley.error.ParseError;
 import com.android.volley.toolbox.HttpHeaderParser;
 
 import org.json.JSONException;
@@ -39,7 +40,7 @@ public class JSONObjectRequest extends Request<JSONObject> {
 	 * POST请求设置参数
 	 */
 	@Override
-	protected Map<String, String> getParams() throws com.android.volley.error.AuthFailureError {
+	protected Map<String, String> getParams() throws AuthFailureError {
 		return params;
 	};
 
@@ -63,7 +64,7 @@ public class JSONObjectRequest extends Request<JSONObject> {
 	}
 
 	@Override
-	public Map<String, String> getHeaders() throws com.android.volley.error.AuthFailureError {
+	public Map<String, String> getHeaders() throws AuthFailureError {
 		// 支持gzip压缩
 		Map<String, String> headers = new HashMap<String, String>();
 		headers.put("Charset", "UTF-8");

@@ -3,6 +3,7 @@ package com.xiongan.develop.news;
 import android.app.Application;
 import android.content.Context;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.xiongan.develop.news.util.ScreenUtil;
 import com.xiongan.develop.news.volleyplus.VolleyPlus;
 
@@ -25,6 +26,7 @@ public class MyApplication extends Application {
         mInstance = this;
 
         VolleyPlus.init(this);
+        Fresco.initialize(this);
     }
 
     public static Context getContext(){
