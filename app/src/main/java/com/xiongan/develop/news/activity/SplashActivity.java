@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -14,7 +13,9 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 
 import com.tbruyelle.rxpermissions.RxPermissions;
+import com.unbelievable.library.android.utils.Logger;
 import com.xiongan.develop.news.R;
+import com.xiongan.develop.news.transcation.NewsChannelsTranscation;
 
 import rx.Subscriber;
 
@@ -22,13 +23,13 @@ import rx.Subscriber;
  * Created by apple on 16/4/17.
  */
 public class SplashActivity extends Activity {
+    private final String TAG = SplashActivity.class.getSimpleName();
     private View rootView;
     private RxPermissions rxPermissions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        GoogleAnalytics.sendConversions("App_Launch");
         //透明状态栏
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window window = getWindow();
@@ -40,30 +41,13 @@ public class SplashActivity extends Activity {
         rxPermissions.setLogging(true);
         rootView = View.inflate(this, R.layout.fragment_splash, null);
         setContentView(rootView);
+        getNewsChannel();
         if (Build.VERSION.SDK_INT >= 23) {
             CheckPermission();
         } else {
             initStartAnimation();
         }
     }
-
-//    private void setLanguage() {
-//        Configuration configuration = new Configuration();
-////        Configuration config = getResources().getConfiguration();
-//        DisplayMetrics dm = getResources().getDisplayMetrics();
-//        int selectId = SharePreferenceUtil.getInstance(this).getLanguage();
-//        switch (selectId) {
-//            case 0://简体中文
-//                configuration.locale = Locale.SIMPLIFIED_CHINESE;
-//                break;
-//            case 1://英语
-//                configuration.locale = Locale.ENGLISH;
-//                break;
-//            default:
-//                break;
-//        }
-//        getResources().updateConfiguration(configuration, dm);
-//    }
 
     private void CheckPermission() {
         rxPermissions.request(Manifest.permission.READ_PHONE_STATE,
@@ -76,21 +60,18 @@ public class SplashActivity extends Activity {
                 .subscribe(new Subscriber<Boolean>() {
                     @Override
                     public void onCompleted() {
-                        Log.e("RxPermissions: Complete");
+                        Logger.e(TAG,"RxPermissions: Complete");
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Loger.e("RxPermissions: Error: " + e.toString());
+                        Logger.e(TAG,"RxPermissions: Error: " + e.toString());
                     }
 
                     @Override
                     public void onNext(Boolean aBoolean) {
-                        Loger.e("RxPermissions: Next: is?: " + aBoolean);
                         if (aBoolean) {
-                            FDSdk.getInstance().init(SplashActivity.this);
                         } else {
-                            Loger.e("Permission denied, can't enable the camera ");
                         }
                         initStartAnimation();
                     }
@@ -119,9 +100,12 @@ public class SplashActivity extends Activity {
         });
     }
 
+    private void getNewsChannel(){
+        new NewsChannelsTranscation(null).excute();
+    }
+
     // 执行跳转
     private void gotoNext() {
-        SharePreferenceUtil.getInstance(SplashActivity.this).setJump("1");
         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
         startActivity(intent);
         SplashActivity.this.finish();

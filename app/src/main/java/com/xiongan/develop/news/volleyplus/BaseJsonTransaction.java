@@ -52,7 +52,7 @@ public abstract class BaseJsonTransaction extends BaseTranscation{
 		}
 		try {
 			jsonObjectRequest = new JSONObjectRequest(method, url, params, responseListener, errorListener);			
-			jsonObjectRequest.setShouldCache(shouldCache);
+//			jsonObjectRequest.setShouldCache(shouldCache);
 			if(Method.POST == method){
 				jsonObjectRequest.setShouldCache(false);
 			}

@@ -2,6 +2,7 @@ package com.xiongan.develop.news.transcation;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.unbelievable.library.android.utils.PreferencesUtil;
 import com.xiongan.develop.news.bean.NewsChannel;
 import com.xiongan.develop.news.config.URLs;
 import com.xiongan.develop.news.volleyplus.BaseJsonTransaction;
@@ -31,6 +32,7 @@ public class NewsChannelsTranscation extends BaseJsonTransaction{
     @Override
     public ResponseEntity parseData(ResponseEntity entity) throws JSONException {
         String resultJson = entity.getInfo();
+        PreferencesUtil.put("NewsChannel",resultJson);
         Gson gson = new Gson();
         Type listType = new TypeToken<List<NewsChannel>>(){}.getType();
         entity.setData(gson.fromJson(resultJson, listType));

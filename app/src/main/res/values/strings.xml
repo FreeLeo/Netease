@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">雄安新闻</string>
     <string name="index_name">雄安</string>
+    <string name="app_todo">千年大计，全面掌握</string>
 
     <string-array name="tabs">
         <item>首页</item>

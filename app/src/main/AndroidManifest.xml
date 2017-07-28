@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.SplashActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.Base">
             <intent-filter>
@@ -43,7 +43,7 @@
             android:name="com.ccwant.photo.selector.activity.CCwantSelectPhotoActivity"
             android:theme="@style/AppTheme.Base" />
         <activity android:name=".activity.VoteActivity" />
-        <activity android:name=".activity.Main2Activity"></activity>
+        <activity android:name=".activity.MainActivity"></activity>
     </application>
 
 </manifest>

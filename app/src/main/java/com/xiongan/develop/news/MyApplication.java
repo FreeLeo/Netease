@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.unbelievable.library.android.utils.PreferencesUtil;
 import com.xiongan.develop.news.util.ScreenUtil;
 import com.xiongan.develop.news.volleyplus.VolleyPlus;
 
@@ -27,6 +28,7 @@ public class MyApplication extends Application {
 
         VolleyPlus.init(this);
         Fresco.initialize(this);
+        PreferencesUtil.initialize(this);
     }
 
     public static Context getContext(){

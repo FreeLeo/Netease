@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,18 +14,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.volley.Response;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.shizhefei.fragment.LazyFragment;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.IndicatorViewPager.IndicatorFragmentPagerAdapter;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
+import com.unbelievable.library.android.utils.PreferencesUtil;
 import com.xiongan.develop.news.R;
 import com.xiongan.develop.news.bean.NewsChannel;
 import com.xiongan.develop.news.transcation.NewsChannelsTranscation;
 import com.xiongan.develop.news.util.ScreenUtil;
 import com.xiongan.develop.news.volleyplus.HttpCallback;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class FirstLayerFragment extends LazyFragment {
@@ -66,12 +71,15 @@ public class FirstLayerFragment extends LazyFragment {
 		indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
 		inflate = LayoutInflater.from(getApplicationContext());
 
-		// 注意这里 的FragmentManager 是 getChildFragmentManager(); 因为是在Fragment里面
-		// 而在activity里面用FragmentManager 是 getSupportFragmentManager()
-//		indicatorViewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
-
-		Log.d("cccc", "Fragment 将要创建View " + this);
-        getNewsChannel();
+		String newsChannel = PreferencesUtil.get("NewsChannel","");
+		if(TextUtils.isEmpty(newsChannel)) {
+			getNewsChannel();
+		}else{
+			Gson gson = new Gson();
+			Type listType = new TypeToken<List<NewsChannel>>(){}.getType();
+			channelList = gson.fromJson(newsChannel, listType);
+			setChannelsView();
+		}
 	}
 
 	@Override
@@ -103,7 +111,7 @@ public class FirstLayerFragment extends LazyFragment {
 			@Override
 			public void onSuccess(int code, String msg, Object data) {
 				channelList = (List<NewsChannel>) data;
-				indicatorViewPager.setAdapter(new MyAdapter(getChildFragmentManager(),channelList));
+				setChannelsView();
 			}
 
 			@Override
@@ -113,6 +121,10 @@ public class FirstLayerFragment extends LazyFragment {
 		};
 		new NewsChannelsTranscation(callback).excute();
     }
+
+    private void setChannelsView(){
+		indicatorViewPager.setAdapter(new MyAdapter(getChildFragmentManager(),channelList));
+	}
 
     private Response.Listener<NewsChannel> createNewsChannelsListener(){
         return new Response.Listener<NewsChannel>(){
