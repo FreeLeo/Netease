@@ -1,8 +1,8 @@
 package com.xiongan.develop.news.fragment;
 
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.shizhefei.fragment.LazyFragment;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.IndicatorViewPager.IndicatorFragmentPagerAdapter;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
@@ -32,7 +31,7 @@ import com.xiongan.develop.news.volleyplus.HttpCallback;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class FirstLayerFragment extends LazyFragment {
+public class FirstLayerFragment extends BaseFragment {
 	private IndicatorViewPager indicatorViewPager;
 	private LayoutInflater inflate;
 	private int index;
@@ -44,18 +43,23 @@ public class FirstLayerFragment extends LazyFragment {
 	public static final String INTENT_INT_INDEX = "intent_int_index";
 
 	@Override
-	protected void onCreateViewLazy(Bundle savedInstanceState) {
-		super.onCreateViewLazy(savedInstanceState);
-		setContentView(R.layout.fragment_tabmain);
+	public void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+	}
+
+	@Nullable
+	@Override
+	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.fragment_tabmain, container, false);
 		Resources res = getResources();
 
 		Bundle bundle = getArguments();
 //		tabName = bundle.getString(INTENT_STRING_TABNAME);
 		index = bundle.getInt(INTENT_INT_INDEX);
 
-		ViewPager viewPager = (ViewPager) findViewById(R.id.fragment_tabmain_viewPager);
-		ScrollIndicatorView indicator = (ScrollIndicatorView) findViewById(R.id.fragment_tabmain_indicator);
-		ColorBar colorBar = new ColorBar(getApplicationContext(), Color.RED, 5);
+		ViewPager viewPager = (ViewPager) view.findViewById(R.id.fragment_tabmain_viewPager);
+		ScrollIndicatorView indicator = (ScrollIndicatorView) view.findViewById(R.id.fragment_tabmain_indicator);
+		ColorBar colorBar = new ColorBar(getContext(), res.getColor(R.color.tab_top_text_2), 5);
 		colorBar.setWidth(ScreenUtil.dp2px(getActivity(), barWidth));
 		indicator.setScrollBar(colorBar);
 
@@ -69,7 +73,7 @@ public class FirstLayerFragment extends LazyFragment {
 		viewPager.setOffscreenPageLimit(4);
 
 		indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
-		inflate = LayoutInflater.from(getApplicationContext());
+		inflate = LayoutInflater.from(getContext());
 
 		String newsChannel = PreferencesUtil.get("NewsChannel","");
 		if(TextUtils.isEmpty(newsChannel)) {
@@ -80,30 +84,7 @@ public class FirstLayerFragment extends LazyFragment {
 			channelList = gson.fromJson(newsChannel, listType);
 			setChannelsView();
 		}
-	}
-
-	@Override
-	protected void onResumeLazy() {
-		super.onResumeLazy();
-		Log.d("cccc", "Fragment所在的Activity onResume, onResumeLazy " + this);
-	}
-
-	@Override
-	protected void onFragmentStartLazy() {
-		super.onFragmentStartLazy();
-		Log.d("cccc", "Fragment 显示 " + this);
-	}
-
-	@Override
-	protected void onFragmentStopLazy() {
-		super.onFragmentStopLazy();
-		Log.d("cccc", "Fragment 掩藏 " + this);
-	}
-
-	@Override
-	protected void onPauseLazy() {
-		super.onPauseLazy();
-		Log.d("cccc", "Fragment所在的Activity onPause, onPauseLazy " + this);
+		return view;
 	}
 
 	private void getNewsChannel(){
@@ -135,12 +116,6 @@ public class FirstLayerFragment extends LazyFragment {
             }
         };
     }
-
-	@Override
-	protected void onDestroyViewLazy() {
-		super.onDestroyViewLazy();
-		Log.d("cccc", "Fragment View将被销毁 " + this);
-	}
 
 	@Override
 	public void onDestroy() {
@@ -179,7 +154,6 @@ public class FirstLayerFragment extends LazyFragment {
 			Bundle bundle = new Bundle();
 			bundle.putString(SecondLayerFragment.INTENT_STRING_TABNAME, channelList.get(position).name);
 			bundle.putString(SecondLayerFragment.INTENT_STRING_TID, channelList.get(position).tid);
-			bundle.putInt(SecondLayerFragment.INTENT_INT_POSITION, position);
 			mainFragment.setArguments(bundle);
 			return mainFragment;
 		}

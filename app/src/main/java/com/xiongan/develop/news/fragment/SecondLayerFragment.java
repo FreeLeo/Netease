@@ -1,7 +1,6 @@
 package com.xiongan.develop.news.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,9 +17,8 @@ import com.xiongan.develop.news.volleyplus.HttpCallback;
 
 import java.util.ArrayList;
 
-public class SecondLayerFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class SecondLayerFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
 	public static final String INTENT_STRING_TABNAME = "intent_String_tabName";
-	public static final String INTENT_INT_POSITION = "intent_int_position";
 	public static final String INTENT_STRING_TID = "tid";
 	private String tid;
 	private String tabName;

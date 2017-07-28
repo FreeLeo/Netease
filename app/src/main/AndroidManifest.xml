@@ -43,7 +43,8 @@
             android:name="com.ccwant.photo.selector.activity.CCwantSelectPhotoActivity"
             android:theme="@style/AppTheme.Base" />
         <activity android:name=".activity.VoteActivity" />
-        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.BaseActivity"></activity>
     </application>
 
 </manifest>

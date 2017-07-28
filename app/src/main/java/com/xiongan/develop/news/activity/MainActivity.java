@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,21 +17,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ccwant.photo.selector.activity.PublishActivity;
-import com.xiongan.develop.news.R;
-import com.xiongan.develop.news.config.URLs;
-import com.xiongan.develop.news.fragment.FirstLayerFragment;
-import com.xiongan.develop.news.fragment.MeFragment;
-import com.xiongan.develop.news.fragment.SecondLayerFragment;
-import com.xiongan.develop.news.fragment.TopicFragment;
-import com.xiongan.develop.news.fragment.VideoFragment;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.shizhefei.view.indicator.Indicator;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.viewpager.SViewPager;
+import com.xiongan.develop.news.R;
+import com.xiongan.develop.news.fragment.FirstLayerFragment;
+import com.xiongan.develop.news.fragment.MeFragment;
+import com.xiongan.develop.news.fragment.SecondLayerFragment;
+import com.xiongan.develop.news.fragment.VideoFragment;
 
-import java.net.URL;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private IndicatorViewPager indicatorViewPager;
     private SystemBarTintManager tintManager;
     private Toolbar toolbar;
@@ -108,8 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
     private class MyAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
         private String[] tabNames = getResources().getStringArray(R.array.tabs);
-        private int[] tabIcons = {R.drawable.maintab_1_selector, R.drawable.maintab_2_selector,
-                R.drawable.maintab_4_selector, R.drawable.maintab_5_selector};
+        private int[] tabIcons = {R.drawable.maintab_1_selector, R.drawable.maintab_2_selector, R.drawable.maintab_5_selector};
         private LayoutInflater inflater;
 
         public MyAdapter(FragmentManager fragmentManager) {
@@ -149,11 +143,10 @@ public class MainActivity extends AppCompatActivity {
             } else if(position == 1) {
                 mainFragment = new SecondLayerFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString(SecondLayerFragment.INTENT_STRING_TABNAME, URLs.NEWS_MAIN);
+                bundle.putString(SecondLayerFragment.INTENT_STRING_TABNAME, "要闻");
+                bundle.putString(SecondLayerFragment.INTENT_STRING_TID, "6");
                 mainFragment.setArguments(bundle);
             } else if(position == 2){
-                mainFragment = new TopicFragment();
-            } else if(position == 3){
                 mainFragment = new MeFragment();
             }else {
                 mainFragment = new VideoFragment();

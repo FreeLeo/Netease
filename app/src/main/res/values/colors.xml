@@ -4,15 +4,15 @@
     <!-- 公共的 -->
     <color name="colorAccent">#75698a</color>
     <color name="tab_main_text_1">#aaa</color>
-    <color name="tab_main_text_2">#74b5f7</color>
+    <color name="tab_main_text_2">#75698a</color>
     <color name="tab_top_text_1">#aaaaaa</color>
-    <color name="tab_top_text_2">#eb413d</color>
+    <color name="tab_top_text_2">#75698a</color><!--界面顶部频道栏颜色-->
     <color name="tab_top2_text_1">#000</color>
     <color name="tab_top2_text_2">#fff</color>
     <color name="white">#fff</color>
 
     <color name="tab_background">#f7f7f7</color>
-    <color name="tab_top_background">#eb423d</color>
+    <color name="tab_top_background">#75698a</color><!--界面顶部+状态栏颜色-->
     <color name="fragment_background">#fafafa</color>
     <color name="list_item_vote_color">#b2b2b2</color>
     <color name="list_item_subtitle_color">#999999</color>

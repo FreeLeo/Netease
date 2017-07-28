@@ -1,9 +1,7 @@
 package com.xiongan.develop.news.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
-import android.text.Spanned;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -17,14 +15,13 @@ import com.xiongan.develop.news.bean.newstext.NewsID;
 import com.xiongan.develop.news.config.Global;
 import com.xiongan.develop.news.factory.RequestSingletonFactory;
 import com.xiongan.develop.news.util.NeteaseURLParse;
-import com.xiongan.develop.news.util.URLImageParser;
 import com.xiongan.develop.news.vollley.MySingleton;
 import com.xiongan.develop.news.widget.PicassoImageGetter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class NewsDetailActivity extends AppCompatActivity {
+public class NewsDetailActivity extends BaseActivity {
     private TextView newsContentTv;
     private final String template = "<p><img src='LINK'/></p>";
     private String link;

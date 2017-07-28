@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,7 +22,7 @@ import com.xiongan.develop.news.vollley.MySingleton;
 /**
  * Created by HHX on 15/9/11.
  */
-public class ImageDisplayActivity extends AppCompatActivity {
+public class ImageDisplayActivity extends BaseActivity {
     ViewPager viewPager;
     ImagePagerAdapter imagePagerAdapter;
     PhotoSet photoSet;

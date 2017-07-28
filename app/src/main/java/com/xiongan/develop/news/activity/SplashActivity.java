@@ -1,7 +1,6 @@
 package com.xiongan.develop.news.activity;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,7 +21,7 @@ import rx.Subscriber;
 /**
  * Created by apple on 16/4/17.
  */
-public class SplashActivity extends Activity {
+public class SplashActivity extends BaseActivity {
     private final String TAG = SplashActivity.class.getSimpleName();
     private View rootView;
     private RxPermissions rxPermissions;
