@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import com.xiongan.develop.news.R;
 import com.xiongan.develop.news.adapter.NormalRecyclerViewAdapter;
@@ -21,13 +21,12 @@ public class SecondLayerFragment extends BaseFragment implements SwipeRefreshLay
 	public static final String INTENT_STRING_TABNAME = "intent_String_tabName";
 	public static final String INTENT_STRING_TID = "tid";
 	private String tid;
-	private String tabName;
-	private TextView textView;
     private ArrayList<OneNewsItemBean> mOneNewsItemList = new ArrayList<>();
 	private NormalRecyclerViewAdapter normalRecyclerViewAdapter;
 
 	private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
+	private ImageView emptyIv;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -38,7 +37,7 @@ public class SecondLayerFragment extends BaseFragment implements SwipeRefreshLay
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_tabmain_item, container, false);
 		tid = getArguments().getString(INTENT_STRING_TID);
-		tabName = getArguments().getString(INTENT_STRING_TABNAME);
+		emptyIv = (ImageView) view.findViewById(R.id.empty_iv);
 		mRecyclerView = (RecyclerView)view.findViewById(R.id.rv_recycler_view);
 		mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));//这里用线性显示 类似于listview
 
@@ -58,8 +57,15 @@ public class SecondLayerFragment extends BaseFragment implements SwipeRefreshLay
 					mOneNewsItemList.addAll(newsList);
 				}
 				if(normalRecyclerViewAdapter == null) {
-					normalRecyclerViewAdapter = new NormalRecyclerViewAdapter(getActivity(),mOneNewsItemList);
-					mRecyclerView.setAdapter(normalRecyclerViewAdapter);
+                    if(mOneNewsItemList == null || mOneNewsItemList.size() == 0){
+                        emptyIv.setVisibility(View.VISIBLE);
+                        mRecyclerView.setVisibility(View.GONE);
+                    }else {
+                        emptyIv.setVisibility(View.GONE);
+                        mRecyclerView.setVisibility(View.VISIBLE);
+                        normalRecyclerViewAdapter = new NormalRecyclerViewAdapter(getActivity(), mOneNewsItemList);
+                        mRecyclerView.setAdapter(normalRecyclerViewAdapter);
+                    }
 				}else {
 					normalRecyclerViewAdapter.notifyDataSetChanged();
 				}
