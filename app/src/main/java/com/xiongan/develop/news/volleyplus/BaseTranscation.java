@@ -2,11 +2,11 @@ package com.xiongan.develop.news.volleyplus;
 
 import android.util.Log;
 
-import com.android.volley.ParseError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
+import com.android.volley.error.ParseError;
+import com.android.volley.error.TimeoutError;
+import com.android.volley.error.VolleyError;
 
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
@@ -109,6 +109,7 @@ public abstract class BaseTranscation {
 	 * 错误处理
 	 */
 	protected Response.ErrorListener errorListener = new Response.ErrorListener(){
+
 		@Override
 		public void onErrorResponse(VolleyError error) {
 			error.printStackTrace();

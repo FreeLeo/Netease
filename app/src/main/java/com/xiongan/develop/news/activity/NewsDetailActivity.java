@@ -2,24 +2,13 @@ package com.xiongan.develop.news.activity;
 
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.widget.TextView;
 
-import com.android.volley.Response;
-import com.google.gson.Gson;
-import com.google.gson.JsonParseException;
 import com.xiongan.develop.news.R;
 import com.xiongan.develop.news.bean.newstext.Img;
 import com.xiongan.develop.news.bean.newstext.NewRoot;
 import com.xiongan.develop.news.bean.newstext.NewsID;
-import com.xiongan.develop.news.config.Global;
-import com.xiongan.develop.news.factory.RequestSingletonFactory;
-import com.xiongan.develop.news.util.NeteaseURLParse;
-import com.xiongan.develop.news.vollley.MySingleton;
 import com.xiongan.develop.news.widget.PicassoImageGetter;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class NewsDetailActivity extends BaseActivity {
     private TextView newsContentTv;
@@ -46,29 +35,7 @@ public class NewsDetailActivity extends BaseActivity {
     }
 
     private void getNews(final String link) {
-        MySingleton.getInstance(getApplicationContext()).getRequestQueue().add(
-                RequestSingletonFactory.getInstance().getGETStringRequest(this, link,
-                        new Response.Listener() {
-                            @Override
-                            public void onResponse(Object response) {
-                                JSONObject obj;
-                                try {
-                                    String id = NeteaseURLParse.getNewsID(link);
-                                    String hold = response.toString().replace(id, "newsID");
-                                    obj = new JSONObject(hold.toString());
 
-                                    NewRoot newRoot = new Gson().fromJson(obj.toString(), Global.NewRoot);
-
-                                    Log.i("RVA", "response: " + response.toString());
-                                    Log.i("RVA", "newRoot: " + newRoot.toString());
-
-                                    updateViewFromJSON(newRoot);
-
-                                } catch (JSONException | JsonParseException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }));
 
     }
 

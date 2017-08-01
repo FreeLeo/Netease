@@ -1,6 +1,7 @@
 package com.xiongan.develop.news.activity;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,13 +12,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.android.volley.toolbox.ImageLoader;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.xiongan.develop.news.R;
 import com.xiongan.develop.news.bean.imageextra.PhotoSet;
 import com.xiongan.develop.news.util.NeteaseURLParse;
-import com.xiongan.develop.news.vollley.MySingleton;
 
 /**
  * Created by HHX on 15/9/11.
@@ -116,10 +115,8 @@ public class ImageDisplayActivity extends BaseActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_one_image, container, false);
             Bundle args = getArguments();
-            final ImageView oneImage = (ImageView) rootView.findViewById(R.id.iv_one_image);
-
-            MySingleton.getInstance(getActivity().getApplicationContext()).getImageLoader().get(args.getString(IMAGE_URL), ImageLoader.getImageListener(oneImage,
-                    defaultImage, defaultImage));
+            final SimpleDraweeView oneImage = (SimpleDraweeView) rootView.findViewById(R.id.iv_one_image);
+            oneImage.setImageURI(Uri.parse(args.getString(IMAGE_URL)));
             return rootView;
         }
     }

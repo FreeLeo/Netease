@@ -44,7 +44,8 @@
             android:theme="@style/AppTheme.Base" />
         <activity android:name=".activity.VoteActivity" />
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.BaseActivity"></activity>
+        <activity android:name=".activity.BaseActivity" />
+        <activity android:name=".activity.AboutActivity"></activity>
     </application>
 
 </manifest>

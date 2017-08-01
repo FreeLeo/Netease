@@ -9,10 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.ImageLoader;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.xiongan.develop.news.R;
 import com.xiongan.develop.news.activity.ImageDisplayActivity;
@@ -21,7 +19,6 @@ import com.xiongan.develop.news.bean.OneNewsItemBean;
 import com.xiongan.develop.news.bean.imageextra.PhotoSet;
 import com.xiongan.develop.news.bean.imageextra.photos;
 import com.xiongan.develop.news.bean.imgextra;
-import com.xiongan.develop.news.vollley.MySingleton;
 import com.xiongan.develop.news.widget.MyRecyclerView;
 import com.xiongan.develop.news.widget.SwitchImage;
 
@@ -172,11 +169,8 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
                 //从网络加载数据
                 ((BannerViewHold) holder).mSwitchImage.setAndLoadImage(new SwitchImage.DisplayImageView() {
                     @Override
-                    public void displayImageFromURL(ImageView view, String url) {
-                        ImageLoader.ImageListener listener = ImageLoader.getImageListener(view,
-                                defaultImage, failImage);
-                        MySingleton.getInstance(mContext.getApplicationContext()).getImageLoader().get(url,
-                                listener, 1000, 500);
+                    public void displayImageFromURL(SimpleDraweeView view, String url) {
+                        view.setImageURI(Uri.parse(url));
                     }
                 });
                 ((BannerViewHold) holder).mSwitchImage.setOnClickListener(new SwitchImage.SwitchImageOnClick() {

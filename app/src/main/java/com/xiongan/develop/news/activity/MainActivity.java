@@ -16,7 +16,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ccwant.photo.selector.activity.PublishActivity;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.shizhefei.view.indicator.Indicator;
 import com.shizhefei.view.indicator.IndicatorViewPager;
@@ -91,10 +90,8 @@ public class MainActivity extends BaseActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }else if(id == R.id.action_publish){
-            Intent intent = new Intent(this, PublishActivity.class);
+        if(id == R.id.action_about){
+            Intent intent = new Intent(this, AboutActivity.class);
             startActivity(intent);
         }
 

@@ -4,11 +4,12 @@
     android:layout_height="match_parent"
     >
 
-    <ImageView
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/iv_one_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:adjustViewBounds="true"
-        android:scaleType="fitCenter"/>
+        android:scaleType="fitCenter"
+        android:src="@drawable/load_fail"/>
 </RelativeLayout>

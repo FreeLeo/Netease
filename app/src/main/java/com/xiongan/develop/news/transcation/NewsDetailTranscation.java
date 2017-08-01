@@ -15,8 +15,8 @@ import org.json.JSONException;
 
 public class NewsDetailTranscation extends BaseJsonTransaction{
     private String nid;
-    public NewsDetailTranscation(String nid, HttpCallback callback) {
-        super(callback);
+    public NewsDetailTranscation(String nid,String tag, HttpCallback callback) {
+        super(callback,tag);
         this.nid = nid;
     }
 

@@ -15,10 +15,10 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.xiongan.develop.news.R;
 
 import java.lang.ref.WeakReference;
@@ -38,7 +38,7 @@ public class SwitchImage extends LinearLayout {
     private Context mContext;
     private BtnJumpTOWhere btnJumpTOWhere;
     private List<View> viewList = new ArrayList<View>();
-    private List<ImageView> imageViewList = new ArrayList<ImageView>();
+    private List<SimpleDraweeView> imageViewList = new ArrayList<SimpleDraweeView>();
     private ViewPager mPager;
     private LinearLayout mDotsLayout;
     private TextView mTextView;
@@ -209,7 +209,7 @@ public class SwitchImage extends LinearLayout {
 
     private View initView(int res) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.item_guide, null);
-        ImageView imageView = (ImageView) view.findViewById(R.id.iguide_img);
+        SimpleDraweeView imageView = (SimpleDraweeView) view.findViewById(R.id.iguide_img);
         imageView.setImageResource(res);
 
         //hold imageView
@@ -220,7 +220,7 @@ public class SwitchImage extends LinearLayout {
 
     private View initView(int res, String url) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.item_guide, null);
-        ImageView imageView = (ImageView) view.findViewById(R.id.iguide_img);
+        SimpleDraweeView imageView = (SimpleDraweeView) view.findViewById(R.id.iguide_img);
         //设置ImageView的超链接
         imageView.setTag(url);
         imageView.setImageResource(res);
@@ -341,7 +341,7 @@ public class SwitchImage extends LinearLayout {
     public void setAndLoadImage(DisplayImageView displayImageView) {
         this.displayImageView = displayImageView;
         if (viewList.size() == 0) throw new RuntimeException("先调用initPager()");
-        for (ImageView imageView : imageViewList) {
+        for (SimpleDraweeView imageView : imageViewList) {
             displayImageView.displayImageFromURL(imageView, (String) imageView.getTag());
         }
     }
@@ -357,7 +357,7 @@ public class SwitchImage extends LinearLayout {
 
     //从URL加载图片
     public interface DisplayImageView {
-        void displayImageFromURL(ImageView view, String url);
+        void displayImageFromURL(SimpleDraweeView view, String url);
     }
 
     //响应ImageView点击

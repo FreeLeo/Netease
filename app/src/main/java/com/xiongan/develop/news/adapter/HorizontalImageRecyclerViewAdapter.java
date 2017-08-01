@@ -3,6 +3,7 @@ package com.xiongan.develop.news.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,13 +13,12 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.android.volley.toolbox.NetworkImageView;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.xiongan.develop.news.MyApplication;
 import com.xiongan.develop.news.R;
 import com.xiongan.develop.news.activity.ImageDisplayActivity;
 import com.xiongan.develop.news.bean.imageextra.PhotoSet;
 import com.xiongan.develop.news.util.NeteaseURLParse;
-import com.xiongan.develop.news.vollley.MySingleton;
 
 /**
  * Created by HHX on 15/9/9.
@@ -136,7 +136,7 @@ public class HorizontalImageRecyclerViewAdapter extends RecyclerView.Adapter<Rec
     }
 
     public static class ImageViewHolder extends RecyclerView.ViewHolder{
-        NetworkImageView imageView;
+        SimpleDraweeView imageView;
         int index;
         ImageViewHolder(View view , int weight, int height, int i) {
             super(view);
@@ -149,16 +149,14 @@ public class HorizontalImageRecyclerViewAdapter extends RecyclerView.Adapter<Rec
                 rl.setMargins(0, 0, 0, 0);
                 rv.setLayoutParams(rl);
             }
-            imageView = (NetworkImageView) view.findViewById(R.id.iv_sub_image);
+            imageView = (SimpleDraweeView) view.findViewById(R.id.iv_sub_image);
             imageView.setLayoutParams(new RelativeLayout.LayoutParams(weight, height));
         }
     }
 
-    private void setNetworkImageView(NetworkImageView networkImageView, String url) {
-        networkImageView.setDefaultImageResId(defaultImage);
-        networkImageView.setErrorImageResId(defaultImage);
-        networkImageView.setImageUrl(url,
-                MySingleton.getInstance(mContext.getApplicationContext()).getImageLoader());
+    private void setNetworkImageView(SimpleDraweeView networkImageView, String url) {
+        networkImageView.setImageResource(R.drawable.load_fail_small);
+        networkImageView.setImageURI(Uri.parse(url));
     }
 
     private static float distance(float x1, float y1, float x2, float y2) {

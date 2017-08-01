@@ -19,15 +19,18 @@ import java.util.List;
 
 public class NewsListTranscation extends BaseJsonTransaction{
     private String tid;
-    public NewsListTranscation(String tid,HttpCallback callback) {
-        super(callback);
+    private int page;
+    public NewsListTranscation(String tid,int page,String tag,HttpCallback callback) {
+        super(callback,tag);
         this.tid = tid;
+        this.page = page;
     }
 
     @Override
     public void prepareRequestOther() {
         setShouldCache(false);
         setParam("tid",tid);
+        setParam("page",page+"");
     }
 
     @Override

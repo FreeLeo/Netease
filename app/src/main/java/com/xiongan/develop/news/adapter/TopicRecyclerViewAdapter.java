@@ -9,12 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.ui.NetworkImageView;
 import com.xiongan.develop.news.R;
 import com.xiongan.develop.news.activity.VoteActivity;
 import com.xiongan.develop.news.bean.OneNewsItemBean;
 import com.xiongan.develop.news.bean.imageextra.PhotoSet;
-import com.xiongan.develop.news.vollley.MySingleton;
 import com.xiongan.develop.news.widget.SwitchImage;
 
 import java.util.ArrayList;
@@ -84,10 +83,7 @@ public class TopicRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
 
 
     private void setNetworkImageView(NetworkImageView networkImageView, String url) {
-        networkImageView.setDefaultImageResId(defaultImage);
-        networkImageView.setErrorImageResId(defaultImage);
-        networkImageView.setImageUrl(url,
-                MySingleton.getInstance(mContext.getApplicationContext()).getImageLoader());
+
     }
 
     public class SingleImageViewHolder extends RecyclerView.ViewHolder {

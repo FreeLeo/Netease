@@ -100,7 +100,7 @@ public class FirstLayerFragment extends BaseFragment {
 
 			}
 		};
-		new NewsChannelsTranscation(callback).excute();
+		new NewsChannelsTranscation(TAG,callback).excute();
     }
 
     private void setChannelsView(){

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.unbelievable.library.android.View.SwipeRefreshView;
 import com.xiongan.develop.news.R;
 import com.xiongan.develop.news.adapter.NormalRecyclerViewAdapter;
 import com.xiongan.develop.news.bean.OneNewsItemBean;
@@ -17,14 +18,15 @@ import com.xiongan.develop.news.volleyplus.HttpCallback;
 
 import java.util.ArrayList;
 
-public class SecondLayerFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
+public class SecondLayerFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,SwipeRefreshView.OnLoadMoreListener{
 	public static final String INTENT_STRING_TABNAME = "intent_String_tabName";
 	public static final String INTENT_STRING_TID = "tid";
 	private String tid;
+    private int page = 0;
     private ArrayList<OneNewsItemBean> mOneNewsItemList = new ArrayList<>();
 	private NormalRecyclerViewAdapter normalRecyclerViewAdapter;
 
-	private SwipeRefreshLayout mSwipeRefreshLayout;
+	private SwipeRefreshView mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
 	private ImageView emptyIv;
 
@@ -41,21 +43,29 @@ public class SecondLayerFragment extends BaseFragment implements SwipeRefreshLay
 		mRecyclerView = (RecyclerView)view.findViewById(R.id.rv_recycler_view);
 		mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));//这里用线性显示 类似于listview
 
-		mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefreshlayout);
+		mSwipeRefreshLayout = (SwipeRefreshView) view.findViewById(R.id.swiperefreshlayout);
 		mSwipeRefreshLayout.setOnRefreshListener(this);
-		getIndexNews();
+        mSwipeRefreshLayout.setOnLoadMoreListener(this);
+		getIndexNews(0);
 		return view;
 	}
 
-	private void getIndexNews() {
+	private void getIndexNews(final int page) {
 		HttpCallback callback = new HttpCallback() {
 			@Override
 			public void onSuccess(int code, String msg, Object data) {
+                SecondLayerFragment.this.page = page + 1;
 				ArrayList<OneNewsItemBean> newsList = (ArrayList<OneNewsItemBean>) data;
-				if(newsList != null) {
-					mOneNewsItemList.clear();
-					mOneNewsItemList.addAll(newsList);
-				}
+                if(page == 0){
+                    mOneNewsItemList.clear();
+                }
+                if(newsList != null) {
+                    mOneNewsItemList.addAll(newsList);
+                }else{
+                    if(newsList.size() < 20){
+                        mSwipeRefreshLayout.setCanLoadMore(false);
+                    }
+                }
 				if(normalRecyclerViewAdapter == null) {
                     if(mOneNewsItemList == null || mOneNewsItemList.size() == 0){
                         emptyIv.setVisibility(View.VISIBLE);
@@ -65,11 +75,13 @@ public class SecondLayerFragment extends BaseFragment implements SwipeRefreshLay
                         mRecyclerView.setVisibility(View.VISIBLE);
                         normalRecyclerViewAdapter = new NormalRecyclerViewAdapter(getActivity(), mOneNewsItemList);
                         mRecyclerView.setAdapter(normalRecyclerViewAdapter);
+                        mSwipeRefreshLayout.init(20,5,true);
                     }
 				}else {
 					normalRecyclerViewAdapter.notifyDataSetChanged();
 				}
 				mSwipeRefreshLayout.setRefreshing(false);
+                mSwipeRefreshLayout.setLoading(false);
 			}
 
 			@Override
@@ -77,11 +89,16 @@ public class SecondLayerFragment extends BaseFragment implements SwipeRefreshLay
 				mSwipeRefreshLayout.setRefreshing(false);
 			}
 		};
-		new NewsListTranscation(tid,callback).excute();
+		new NewsListTranscation(tid,page,TAG,callback).excute();
 	}
 
 	@Override
 	public void onRefresh() {
-		getIndexNews();
+		getIndexNews(0);
 	}
+
+    @Override
+    public void onLoadMore() {
+        getIndexNews(page);
+    }
 }

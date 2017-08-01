@@ -20,8 +20,8 @@ import java.util.List;
 
 public class NewsChannelsTranscation extends BaseJsonTransaction{
 
-    public NewsChannelsTranscation(HttpCallback callback) {
-        super(callback);
+    public NewsChannelsTranscation(String tag,HttpCallback callback) {
+        super(callback,tag);
     }
 
     @Override

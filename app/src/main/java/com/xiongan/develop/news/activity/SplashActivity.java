@@ -100,7 +100,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void getNewsChannel(){
-        new NewsChannelsTranscation(null).excute();
+        new NewsChannelsTranscation(TAG,null).excute();
     }
 
     // 执行跳转

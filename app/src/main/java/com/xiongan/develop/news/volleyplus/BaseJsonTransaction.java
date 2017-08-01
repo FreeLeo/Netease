@@ -20,10 +20,19 @@ import java.util.TreeSet;
  */
 public abstract class BaseJsonTransaction extends BaseTranscation{
 	private int method = Method.GET;
+	public String tag;
 	public BaseJsonTransaction(HttpCallback callback) {
 		super();
 		this.callback = callback;
 		TAG = getClass().getName();
+		mQueue = VolleyPlus.getRequestQueue();
+	}
+
+	public BaseJsonTransaction(HttpCallback callback,String tag) {
+		super();
+		this.callback = callback;
+		TAG = getClass().getName();
+		this.tag = tag;
 		mQueue = VolleyPlus.getRequestQueue();
 	}
 
@@ -56,6 +65,7 @@ public abstract class BaseJsonTransaction extends BaseTranscation{
 			if(Method.POST == method){
 				jsonObjectRequest.setShouldCache(false);
 			}
+			jsonObjectRequest.setTag(tag);
 			mQueue.add(jsonObjectRequest);
 			Log.d(TAG, jsonObjectRequest.toString());
 		} catch (Exception e) {

@@ -104,7 +104,7 @@ public class NewsDisplayActivity extends BaseActivity {
 
             }
         };
-        new NewsDetailTranscation(nid, callback).excute();
+        new NewsDetailTranscation(nid,TAG, callback).excute();
     }
 
     private void setVoteView() {

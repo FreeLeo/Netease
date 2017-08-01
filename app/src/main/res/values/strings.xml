@@ -18,6 +18,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">设置</string>
     <string name="action_publish">发布</string>
+    <string name="action_about">关于</string>
     <string-array name="titles">
         <item>Android</item>
         <item>For</item>
@@ -27,4 +28,9 @@
     <string name="vote_nav_title">跟帖</string>
     <string name="votezero">0跟帖</string>
     <string name="vote_write">写跟帖</string>
+    <string name="upgrade">更新</string>
+    <string name="confirm">确定</string>
+    <string name="file_not_exist">文件不存在</string>
+    <string name="downloading">下载中...</string>
+    <string name="about">\u3000\u3000雄安新区规划建设以特定区域为起步区先行开发，起步区面积约100平方公里，中期发展区面积约200平方公里，远期控制区面积约2000平方公里。雄安新区定位二类大城市。设立雄安新区，对于集中疏解北京非首都功能，探索人口经济密集地区优化开发新模式，调整优化京津冀城市布局和空间结构，培育创新驱动发展新引擎，具有重大现实意义和深远历史意义。\n\n\u3000\u3000雄安新闻秉承全面、及时的理念，为用户提供最新动态，如果你有任何雄安方面的消息，请立即使用如下方式联系我们，我们将第一时间将消息呈现给大家，谢谢。官方QQ:527999369</string>
 </resources>
