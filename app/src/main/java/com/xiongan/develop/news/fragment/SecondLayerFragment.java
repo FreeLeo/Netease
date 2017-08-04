@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.headerfooter.songhang.library.SmartRecyclerAdapter;
-import com.xiongan.develop.news.widget.SwipeRefreshView;
+import com.unbelievable.library.android.View.SwipeRefreshView;
 import com.xiongan.develop.news.R;
 import com.xiongan.develop.news.adapter.NormalRecyclerViewAdapter;
 import com.xiongan.develop.news.bean.OneNewsItemBean;

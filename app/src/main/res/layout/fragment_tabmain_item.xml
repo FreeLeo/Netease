@@ -12,7 +12,7 @@
         android:scaleType="centerInside"
         android:src="@drawable/empty_news"
         android:visibility="gone"/>
-    <com.xiongan.develop.news.widget.SwipeRefreshView
+    <com.unbelievable.library.android.View.SwipeRefreshView
         android:id="@+id/swiperefreshlayout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -24,5 +24,5 @@
                 android:id="@+id/rv_recycler_view"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"/>
-    </com.xiongan.develop.news.widget.SwipeRefreshView>
+    </com.unbelievable.library.android.View.SwipeRefreshView>
 </RelativeLayout>
