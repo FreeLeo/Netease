@@ -5,14 +5,18 @@
     android:layout_height="match_parent"
     android:background="@color/fragment_background"
     >
-    <com.unbelievable.library.android.View.SwipeRefreshView
+    <ImageView
+        android:id="@+id/empty_iv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerInside"
+        android:src="@drawable/empty_news"
+        android:visibility="gone"/>
+    <com.xiongan.develop.news.widget.SwipeRefreshView
         android:id="@+id/swiperefreshlayout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:scrollbars="vertical">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
             <android.support.v7.widget.RecyclerView
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
@@ -20,13 +24,5 @@
                 android:id="@+id/rv_recycler_view"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"/>
-            <ImageView
-                android:id="@+id/empty_iv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerInside"
-                android:src="@drawable/empty_news"
-                android:visibility="gone"/>
-        </RelativeLayout>
-    </com.unbelievable.library.android.View.SwipeRefreshView>
+    </com.xiongan.develop.news.widget.SwipeRefreshView>
 </RelativeLayout>

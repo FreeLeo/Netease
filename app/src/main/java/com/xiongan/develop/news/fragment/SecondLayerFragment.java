@@ -9,7 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.unbelievable.library.android.View.SwipeRefreshView;
+import com.headerfooter.songhang.library.SmartRecyclerAdapter;
+import com.xiongan.develop.news.widget.SwipeRefreshView;
 import com.xiongan.develop.news.R;
 import com.xiongan.develop.news.adapter.NormalRecyclerViewAdapter;
 import com.xiongan.develop.news.bean.OneNewsItemBean;
@@ -24,7 +25,7 @@ public class SecondLayerFragment extends BaseFragment implements SwipeRefreshLay
 	private String tid;
     private int page = 0;
     private ArrayList<OneNewsItemBean> mOneNewsItemList = new ArrayList<>();
-	private NormalRecyclerViewAdapter normalRecyclerViewAdapter;
+    private SmartRecyclerAdapter mSmartRecyclerAdapter;
 
 	private SwipeRefreshView mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
@@ -46,6 +47,8 @@ public class SecondLayerFragment extends BaseFragment implements SwipeRefreshLay
 		mSwipeRefreshLayout = (SwipeRefreshView) view.findViewById(R.id.swiperefreshlayout);
 		mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setOnLoadMoreListener(this);
+		mSwipeRefreshLayout.measure(0, 0);
+		mSwipeRefreshLayout.setRefreshing(true);
 		getIndexNews(0);
 		return view;
 	}
@@ -66,19 +69,20 @@ public class SecondLayerFragment extends BaseFragment implements SwipeRefreshLay
                         mSwipeRefreshLayout.setCanLoadMore(false);
                     }
                 }
-				if(normalRecyclerViewAdapter == null) {
+				if(mSmartRecyclerAdapter == null) {
                     if(mOneNewsItemList == null || mOneNewsItemList.size() == 0){
                         emptyIv.setVisibility(View.VISIBLE);
                         mRecyclerView.setVisibility(View.GONE);
                     }else {
                         emptyIv.setVisibility(View.GONE);
                         mRecyclerView.setVisibility(View.VISIBLE);
-                        normalRecyclerViewAdapter = new NormalRecyclerViewAdapter(getActivity(), mOneNewsItemList);
-                        mRecyclerView.setAdapter(normalRecyclerViewAdapter);
+                        NormalRecyclerViewAdapter normalRecyclerViewAdapter = new NormalRecyclerViewAdapter(getActivity(), mOneNewsItemList);
+                        mSmartRecyclerAdapter = new SmartRecyclerAdapter(normalRecyclerViewAdapter);
+                        mRecyclerView.setAdapter(mSmartRecyclerAdapter);
                         mSwipeRefreshLayout.init(20,5,true);
                     }
 				}else {
-					normalRecyclerViewAdapter.notifyDataSetChanged();
+                    mSmartRecyclerAdapter.notifyDataSetChanged();
 				}
 				mSwipeRefreshLayout.setRefreshing(false);
                 mSwipeRefreshLayout.setLoading(false);
