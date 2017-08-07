@@ -38,7 +38,7 @@ public class CommonDialog {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
-                                ToastUtils.toastL(context,context.getString(R.string.downloading));
+                                ToastUtils.toastS(context,context.getString(R.string.downloading));
                                 final long requestId = DownloadManagerUtils.request(getContext(), bean.apkUrl, "xiongan", bean.versionName+".apk");
                                 final Timer timer = new Timer();
                                 TimerTask task = new TimerTask() {

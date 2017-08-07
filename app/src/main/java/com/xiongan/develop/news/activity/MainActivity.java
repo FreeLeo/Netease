@@ -176,7 +176,7 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onFailure(int code, String msg, Object data) {
-                ToastUtils.toastL(MainActivity.this,msg);
+                ToastUtils.toastS(MainActivity.this,msg);
             }
         };
         new UpgradeTranscation(getVolleyTag(),callback).excute();

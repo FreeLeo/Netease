@@ -94,7 +94,7 @@ public class RecommendFragment extends BaseFragment implements SwipeRefreshLayou
 				}
 				mSwipeRefreshLayout.setRefreshing(false);
                 mSwipeRefreshLayout.setLoading(false);
-                ToastUtils.toastL(getContext(),msg);
+                ToastUtils.toastS(getContext(),msg);
 			}
 		};
 		new RecommendTranscation(page,TAG,callback).excute();

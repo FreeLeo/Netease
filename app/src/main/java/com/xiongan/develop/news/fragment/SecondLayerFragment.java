@@ -98,7 +98,7 @@ public class SecondLayerFragment extends BaseFragment implements SwipeRefreshLay
                 }
 				mSwipeRefreshLayout.setRefreshing(false);
                 mSwipeRefreshLayout.setLoading(false);
-                ToastUtils.toastL(getContext(),msg);
+                ToastUtils.toastS(getContext(),msg);
 			}
 		};
 		new NewsListTranscation(tid,page,TAG,callback).excute();

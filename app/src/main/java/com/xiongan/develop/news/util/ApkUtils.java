@@ -30,7 +30,7 @@ public class ApkUtils {
     public static void install(Context context,String apkPath) {
         File file = new File(apkPath);
         if(!file.exists()){
-            ToastUtils.toastL(context,context.getString(R.string.file_not_exist));
+            ToastUtils.toastS(context,context.getString(R.string.file_not_exist));
         }
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(Uri.fromFile(file),

@@ -102,7 +102,7 @@ public class NewsDisplayActivity extends BaseActivity {
             @Override
             public void onFailure(int code, String msg, Object data) {
                 destroyProgressDialog();
-                ToastUtils.toastL(NewsDisplayActivity.this,msg);
+                ToastUtils.toastS(NewsDisplayActivity.this,msg);
             }
         };
         new NewsDetailTranscation(nid,TAG, callback).excute();

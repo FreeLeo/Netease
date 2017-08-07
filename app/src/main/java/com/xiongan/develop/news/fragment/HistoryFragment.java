@@ -94,7 +94,7 @@ public class HistoryFragment extends BaseFragment implements SwipeRefreshLayout.
 				}
 				mSwipeRefreshLayout.setRefreshing(false);
                 mSwipeRefreshLayout.setLoading(false);
-                ToastUtils.toastL(getContext(),msg);
+                ToastUtils.toastS(getContext(),msg);
 			}
 		};
 		new HistoryTranscation(page,TAG,callback).excute();
