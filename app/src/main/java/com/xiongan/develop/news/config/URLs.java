@@ -16,7 +16,12 @@ public class URLs {
     public static final String NEWS_LIST = DOMAIN_NAME + "/xa-channels/0/xa-news";
     //新闻详情
     public static final String NEWS_DETAIL = DOMAIN_NAME + "/xa-news/";
-
+    //历史
+    public static final String NEWS_HISTORY = DOMAIN_NAME + "/xa-devices/";
+    //推荐
+    public static final String NEWS_RECOMMEND = DOMAIN_NAME + "/xa-devices/";
+    //版本跟新
+    public static final String VERSION_UPGRADE = DOMAIN_NAME + "/xa-apps/";
 
 
 

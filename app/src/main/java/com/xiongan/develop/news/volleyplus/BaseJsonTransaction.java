@@ -2,9 +2,11 @@ package com.xiongan.develop.news.volleyplus;
 
 import android.util.Log;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,15 +58,13 @@ public abstract class BaseJsonTransaction extends BaseTranscation{
 	public Request<JSONObject> process(int method) {
 		url = getApiUrl();
 		prepareRequest();
-		if(method == Method.GET){
-			url = getUrlWithQueryString(url);
-		}
+//		if(method == Method.GET){
+//			url = getUrlWithQueryString(url);
+//		}
 		try {
 			jsonObjectRequest = new JSONObjectRequest(method, url, params, responseListener, errorListener);			
-//			jsonObjectRequest.setShouldCache(shouldCache);
-			if(Method.POST == method){
-				jsonObjectRequest.setShouldCache(false);
-			}
+			jsonObjectRequest.setShouldCache(shouldCache);
+			jsonObjectRequest.setRetryPolicy(getRetryPolicy());
 			jsonObjectRequest.setTag(tag);
 			mQueue.add(jsonObjectRequest);
 			Log.d(TAG, jsonObjectRequest.toString());
@@ -75,6 +75,17 @@ public abstract class BaseJsonTransaction extends BaseTranscation{
 			}
 		}
 		return jsonObjectRequest; 
+	}
+
+	/**
+	 * Volley请求参数设置
+	 *
+	 * @return
+	 */
+	private RetryPolicy getRetryPolicy() {
+		return new DefaultRetryPolicy(10000,
+				DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+				DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
 	}
 
 	/**

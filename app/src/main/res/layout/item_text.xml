@@ -52,7 +52,7 @@
                 android:layout_alignBottom="@id/list_item_news_subtitle"
                 android:layout_alignParentRight="true"
                 android:paddingRight="@dimen/list_item_vote_padding"
-                android:text="@string/votezero"
+                android:text="@string/read_count_zero"
                 android:textColor="@color/list_item_vote_color"
                 android:textSize="@dimen/list_vote_text_size" />
         </RelativeLayout>

@@ -1,16 +1,20 @@
 package com.xiongan.develop.news.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import com.umeng.analytics.MobclickAgent;
 import com.xiongan.develop.news.volleyplus.VolleyPlus;
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends com.unbelievable.library.android.app.BaseActivity {
     public final String TAG = BaseActivity.class.getSimpleName() + hashCode();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public String getVolleyTag() {
+        return TAG;
     }
 
     @Override

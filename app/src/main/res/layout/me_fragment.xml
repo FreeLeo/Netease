@@ -97,7 +97,6 @@
                             style="@style/wrap_layout"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="5dp"
-                            android:layout_toRightOf="@+id/tv_me_balance"
                             android:text="雄安建设，一等功臣"
                             android:textColor="#FE2D4A" />
 
@@ -107,7 +106,6 @@
                             android:layout_height="25dp"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="5dp"
-                            android:layout_toRightOf="@+id/tv_me_element"
                             android:src="@drawable/icon_qiandai"
                             android:visibility="gone" />
                     </RelativeLayout>

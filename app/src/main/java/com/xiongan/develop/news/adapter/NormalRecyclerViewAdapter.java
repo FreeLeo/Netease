@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.xiongan.develop.news.R;
-import com.xiongan.develop.news.activity.ImageDisplayActivity;
 import com.xiongan.develop.news.activity.NewsDisplayActivity;
 import com.xiongan.develop.news.bean.OneNewsItemBean;
 import com.xiongan.develop.news.bean.imageextra.PhotoSet;
@@ -35,7 +34,6 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     int defaultImage = R.drawable.load_fail;
     int failImage = R.drawable.load_fail;
     private int[] defaultImages = new int[]{defaultImage};
-    ImageViewHolderListener mImageViewHolderListener = new ImageViewHolderListener();
     final String TAG = getClass().getSimpleName();
 
     public enum ITEM_TYPE {
@@ -64,7 +62,6 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == ITEM_TYPE.ITEM_TYPE_IMAGE.ordinal()) {
             View hold = mLayoutInflater.inflate(R.layout.item_image, parent, false);
-            hold.setOnClickListener(mImageViewHolderListener);
             return new ImageViewHolder(hold);
         } else if (viewType == ITEM_TYPE.ITEM_TYPE_TEXT.ordinal()) {
             View hold = mLayoutInflater.inflate(R.layout.item_text, parent, false);
@@ -105,13 +102,15 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         if (listItem.size() - 1 >= position) {
             ((TextViewHolder) holder).mTitle.setText(listItem.get(position).getTitle());
             ((TextViewHolder) holder).mSubTitle.setText(listItem.get(position).getSource());
-            ((TextViewHolder) holder).mVote.setText(listItem.get(position).votecount + "跟帖");
+            ((TextViewHolder) holder).mVote.setText(listItem.get(position).readCount + mContext.getString(R.string.read_count));
             SimpleDraweeView draweeView = (SimpleDraweeView) ((TextViewHolder) holder).mImageView;
             if(bean.getImgextra() != null && bean.getImgextra().size() > 0) {
                 Uri uri = Uri.parse(bean.getImgextra().get(0).getImgsrc());
                 draweeView.setImageURI(uri);
+                draweeView.setVisibility(View.VISIBLE);
             }else{
                 draweeView.setImageResource(R.drawable.load_fail);
+                draweeView.setVisibility(View.GONE);
             }
 
             ((TextViewHolder) holder).v.setOnClickListener(new TextViewHolderListener(position));
@@ -121,7 +120,7 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     private void setImageViewHolder(RecyclerView.ViewHolder holder, int position){
         OneNewsItemBean bean = listItem.get(position);
         ((ImageViewHolder) holder).mTextView.setText(listItem.get(position).getTitle());
-        ((ImageViewHolder) holder).mVote.setText(listItem.get(position).votecount + "跟帖");
+        ((ImageViewHolder) holder).mVote.setText(listItem.get(position).readCount + mContext.getString(R.string.read_count));
 
         MyRecyclerView hold = ((ImageViewHolder) holder).mRecyclerView;
         //设置水平适配器
@@ -139,9 +138,10 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         photoSet.setPhotos(photos);
         HorizontalImageRecyclerViewAdapter horizontalImageRecyclerViewAdapter = new HorizontalImageRecyclerViewAdapter(mContext, photoSet, hold);
         hold.setAdapter(horizontalImageRecyclerViewAdapter);
+        hold.setOnClickListener(new ImageViewHolderListener(position));
     }
 
-    private void setBannerViewHolder(RecyclerView.ViewHolder holder, int position){
+    private void setBannerViewHolder(RecyclerView.ViewHolder holder, final int position){
         OneNewsItemBean bean = listItem.get(position);
         //无数据时显示默认值
         if (listItem.size() == 0) {
@@ -150,7 +150,7 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         }
         //正常加载数据
         else {
-            if (listItem.size() >= 1 && listItem.get(0).getOrder() == 1) {
+            if (listItem.size() >= 1 && listItem.get(position).getOrder() == 1) {
                 String[] urlsStrings = null;
                 int[] defaultImages2 = null;
                 String[] textsStrings = null;
@@ -175,8 +175,10 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
                 });
                 ((BannerViewHold) holder).mSwitchImage.setOnClickListener(new SwitchImage.SwitchImageOnClick() {
                     @Override
-                    public void viewClickedListener(int position) {
-
+                    public void viewClickedListener(int positionBanner) {
+                        Intent i = new Intent(mContext, NewsDisplayActivity.class);
+                        i.putExtra("nid", listItem.get(position).nid);
+                        mContext.startActivity(i);
                     }
                 });
             }
@@ -247,9 +249,14 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     }
 
     class ImageViewHolderListener implements View.OnClickListener {
+        int position;
+        ImageViewHolderListener(int i) {
+            position = i;
+        }
         @Override
         public void onClick(View v) {
-            Intent i = new Intent(mContext, ImageDisplayActivity.class);
+            Intent i = new Intent(mContext, NewsDisplayActivity.class);
+            i.putExtra("nid", listItem.get(position).nid);
             mContext.startActivity(i);
         }
     }

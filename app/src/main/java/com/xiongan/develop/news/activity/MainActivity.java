@@ -20,11 +20,16 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.shizhefei.view.indicator.Indicator;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.viewpager.SViewPager;
+import com.unbelievable.library.android.utils.ToastUtils;
 import com.xiongan.develop.news.R;
+import com.xiongan.develop.news.bean.UpgradeBean;
+import com.xiongan.develop.news.dialog.CommonDialog;
 import com.xiongan.develop.news.fragment.FirstLayerFragment;
 import com.xiongan.develop.news.fragment.MeFragment;
 import com.xiongan.develop.news.fragment.SecondLayerFragment;
 import com.xiongan.develop.news.fragment.VideoFragment;
+import com.xiongan.develop.news.transcation.UpgradeTranscation;
+import com.xiongan.develop.news.volleyplus.HttpCallback;
 
 public class MainActivity extends BaseActivity {
     private IndicatorViewPager indicatorViewPager;
@@ -61,6 +66,7 @@ public class MainActivity extends BaseActivity {
                 toolbar.setTitle(tabTitles[i1]);
             }
         });
+        getUpgradeInfo();
     }
 
 
@@ -159,5 +165,20 @@ public class MainActivity extends BaseActivity {
         }else{
             toolbar.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void getUpgradeInfo(){
+        HttpCallback callback = new HttpCallback() {
+            @Override
+            public void onSuccess(int code, String msg, Object data) {
+                CommonDialog.showUpgrade(MainActivity.this, (UpgradeBean) data);
+            }
+
+            @Override
+            public void onFailure(int code, String msg, Object data) {
+                ToastUtils.toastL(MainActivity.this,msg);
+            }
+        };
+        new UpgradeTranscation(getVolleyTag(),callback).excute();
     }
 }

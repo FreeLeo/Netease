@@ -2,7 +2,6 @@ package com.xiongan.develop.news.activity;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.unbelievable.library.android.utils.ToastUtils;
 import com.xiongan.develop.news.R;
 import com.xiongan.develop.news.bean.newstext.Img;
 import com.xiongan.develop.news.bean.newstext.NewsID;
@@ -59,7 +59,6 @@ public class NewsDisplayActivity extends BaseActivity {
     @BindView(R.id.tv_time)
     TextView timeTv;
     private SystemBarTintManager tintManager;
-    private Context context;
     private TextView content;
     private TextView title;
     private final String template = "<p><img src='LINK'/></p>";
@@ -72,7 +71,6 @@ public class NewsDisplayActivity extends BaseActivity {
         initWindow();
         setContentView(R.layout.activity_news_display);
         ButterKnife.bind(this);
-        context = this;
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -93,15 +91,18 @@ public class NewsDisplayActivity extends BaseActivity {
     }
 
     private void getNews(final String nid) {
+        createProgressDialog(getString(R.string.loading));
         HttpCallback callback = new HttpCallback() {
             @Override
             public void onSuccess(int code, String msg, Object data) {
+                destroyProgressDialog();
                 updateViewFromJSON((NewsID) data);
             }
 
             @Override
             public void onFailure(int code, String msg, Object data) {
-
+                destroyProgressDialog();
+                ToastUtils.toastL(NewsDisplayActivity.this,msg);
             }
         };
         new NewsDetailTranscation(nid,TAG, callback).excute();
@@ -183,6 +184,9 @@ public class NewsDisplayActivity extends BaseActivity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.action_refresh:
+                getNews(nid);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -209,7 +213,7 @@ public class NewsDisplayActivity extends BaseActivity {
         content.setText(Html.fromHtml(body, new PicassoImageGetter(content), null));
         content.setTextSize(16);
 
-        voteTv.setText(hold.getThreadVote() + "跟帖");
+        voteTv.setText(hold.readCount + getString(R.string.read_count));
         voteNumTv.setText("跟帖：" + hold.getThreadVote() + "");
     }
 
@@ -274,7 +278,7 @@ public class NewsDisplayActivity extends BaseActivity {
 
     @OnClick(R.id.tv_vote)
     public void onViewClicked() {
-        Intent intent = new Intent(this, VoteActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, VoteActivity.class);
+//        startActivity(intent);
     }
 }

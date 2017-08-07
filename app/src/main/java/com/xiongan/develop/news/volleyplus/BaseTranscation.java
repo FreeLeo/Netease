@@ -24,10 +24,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public abstract class BaseTranscation {
-	
+
 	protected Map<String, String> params;
 	protected Map<String, String> headers;
-	protected HttpCallback callback;	
+	protected HttpCallback callback;
 	protected String url;
 	protected RequestQueue mQueue;
 	protected String TAG = "BaseTranscation";
@@ -37,26 +37,10 @@ public abstract class BaseTranscation {
 	public void setShouldCache(boolean shouldCache) {
 		this.shouldCache = shouldCache;
 	}
-	
-	protected boolean forceCache;
-	
-	/**
-	 * 如果设置需要缓存，forceCache说明强制先返回缓存再校验
-	 * 可以忽视服务器must-revalidate或proxy-revalidate
-	 * 默认按标准http缓存策略，max-age，只要没有过期都走缓存
-	 * must-revalidate作用是，下次请求必须先校验资源是否有效
-	 * 如果返回302说明，继续使用缓存资源
-	 */
-	public void setForceCache(boolean forceCache) {
-		this.forceCache = forceCache;
-	}	
-	public boolean isForceCache() {
-		return forceCache;
-	}
 
 	public abstract String getApiUrl();
 	
-	protected List<BasicNameValuePair> getParamsList() {		
+	protected List<BasicNameValuePair> getParamsList() {
 		List<BasicNameValuePair> lparams = new LinkedList<BasicNameValuePair>();
 		if(params != null){
 			for (ConcurrentHashMap.Entry<String, String> entry : params.entrySet()) {

@@ -1,12 +1,15 @@
 package com.xiongan.develop.news.volleyplus;
 
+import com.android.volley.Cache;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.error.AuthFailureError;
+import com.android.volley.error.NoConnectionError;
 import com.android.volley.error.ParseError;
+import com.android.volley.error.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 
 import org.json.JSONException;
@@ -71,5 +74,20 @@ public class JSONObjectRequest extends Request<JSONObject> {
 		// headers.put("Content-Type", "*/*"); 这句代码有问题
 		headers.put("Accept-Encoding", "gzip,deflate");
 		return headers;
+	}
+
+	@Override
+	public void deliverError(VolleyError error) {
+		if(error instanceof NoConnectionError)
+		{
+			Cache.Entry entry = this.getCacheEntry();
+			if (entry != null)
+			{
+				Response<JSONObject> response = parseNetworkResponse(new NetworkResponse(entry.data, entry.responseHeaders));
+				deliverResponse(response.result);
+				return ;
+			}
+		}
+		super.deliverError(error);
 	}
 }

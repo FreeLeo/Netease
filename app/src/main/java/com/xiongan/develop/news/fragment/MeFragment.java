@@ -116,13 +116,15 @@ public class MeFragment extends BaseFragment {
 
 		@Override
 		public Fragment getFragmentForPage(int position) {
-
-			SecondLayerFragment mainFragment = new SecondLayerFragment();
-			Bundle bundle = new Bundle();
-			bundle.putString(SecondLayerFragment.INTENT_STRING_TABNAME, channelList.get(position).name);
-			bundle.putString(SecondLayerFragment.INTENT_STRING_TID, channelList.get(position).tid);
-			mainFragment.setArguments(bundle);
-			return mainFragment;
+			if(position == 0){
+                RecommendFragment recommendFragment = new RecommendFragment();
+                return recommendFragment;
+            }else if(position == 1){
+				HistoryFragment historyFragment = new HistoryFragment();
+				return historyFragment;
+			}else{
+                return null;
+            }
 		}
 	}
 

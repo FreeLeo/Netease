@@ -1,6 +1,8 @@
 package com.xiongan.develop.news.transcation;
 
 import com.google.gson.Gson;
+import com.unbelievable.library.android.utils.DeviceUtil;
+import com.xiongan.develop.news.MyApplication;
 import com.xiongan.develop.news.bean.newstext.NewsID;
 import com.xiongan.develop.news.config.URLs;
 import com.xiongan.develop.news.volleyplus.BaseJsonTransaction;
@@ -22,7 +24,8 @@ public class NewsDetailTranscation extends BaseJsonTransaction{
 
     @Override
     public void prepareRequestOther() {
-        setShouldCache(false);
+        setShouldCache(true);
+        setParam("deviceId", DeviceUtil.getDeviceId(MyApplication.getContext()));
     }
 
     @Override

@@ -25,7 +25,7 @@ import static com.xiongan.develop.news.MyApplication.getContext;
 
 public class CommonDialog {
     public static void showUpgrade(final Context context ,final UpgradeBean bean) {
-        if(bean.versionCode <= ApkUtils.getVersion(context)){
+        if(bean == null || bean.versionCode <= ApkUtils.getVersion(context)){
             return;
         }
         final Handler handler = new Handler();

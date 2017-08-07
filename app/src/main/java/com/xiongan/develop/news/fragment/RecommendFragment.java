@@ -15,15 +15,12 @@ import com.unbelievable.library.android.utils.ToastUtils;
 import com.xiongan.develop.news.R;
 import com.xiongan.develop.news.adapter.NormalRecyclerViewAdapter;
 import com.xiongan.develop.news.bean.OneNewsItemBean;
-import com.xiongan.develop.news.transcation.NewsListTranscation;
+import com.xiongan.develop.news.transcation.RecommendTranscation;
 import com.xiongan.develop.news.volleyplus.HttpCallback;
 
 import java.util.ArrayList;
 
-public class SecondLayerFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,SwipeRefreshView.OnLoadMoreListener,View.OnClickListener{
-	public static final String INTENT_STRING_TABNAME = "intent_String_tabName";
-	public static final String INTENT_STRING_TID = "tid";
-	private String tid;
+public class RecommendFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,SwipeRefreshView.OnLoadMoreListener,View.OnClickListener{
     private int page = 0;
     private ArrayList<OneNewsItemBean> mOneNewsItemList = new ArrayList<>();
     private SmartRecyclerAdapter mSmartRecyclerAdapter;
@@ -40,9 +37,8 @@ public class SecondLayerFragment extends BaseFragment implements SwipeRefreshLay
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_tabmain_item, container, false);
-		tid = getArguments().getString(INTENT_STRING_TID);
 		emptyIv = (ImageView) view.findViewById(R.id.empty_iv);
-        emptyIv.setOnClickListener(this);
+		emptyIv.setOnClickListener(this);
 		mRecyclerView = (RecyclerView)view.findViewById(R.id.rv_recycler_view);
 		mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));//这里用线性显示 类似于listview
 
@@ -59,7 +55,7 @@ public class SecondLayerFragment extends BaseFragment implements SwipeRefreshLay
 		HttpCallback callback = new HttpCallback() {
 			@Override
 			public void onSuccess(int code, String msg, Object data) {
-                SecondLayerFragment.this.page = page + 1;
+                RecommendFragment.this.page = page + 1;
 				ArrayList<OneNewsItemBean> newsList = (ArrayList<OneNewsItemBean>) data;
                 if(page == 0){
                     mOneNewsItemList.clear();
@@ -92,16 +88,16 @@ public class SecondLayerFragment extends BaseFragment implements SwipeRefreshLay
 
 			@Override
 			public void onFailure(int code, String msg, Object data) {
-                if(mOneNewsItemList == null || mOneNewsItemList.size() == 0){
-                    emptyIv.setVisibility(View.VISIBLE);
-                    mRecyclerView.setVisibility(View.GONE);
-                }
+				if(mOneNewsItemList == null || mOneNewsItemList.size() == 0){
+					emptyIv.setVisibility(View.VISIBLE);
+					mRecyclerView.setVisibility(View.GONE);
+				}
 				mSwipeRefreshLayout.setRefreshing(false);
                 mSwipeRefreshLayout.setLoading(false);
                 ToastUtils.toastL(getContext(),msg);
 			}
 		};
-		new NewsListTranscation(tid,page,TAG,callback).excute();
+		new RecommendTranscation(page,TAG,callback).excute();
 	}
 
 	@Override
@@ -114,12 +110,12 @@ public class SecondLayerFragment extends BaseFragment implements SwipeRefreshLay
         getIndexNews(page);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.empty_iv:
-                getIndexNews(0);
-                break;
-        }
-    }
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()){
+			case R.id.empty_iv:
+				getIndexNews(0);
+				break;
+		}
+	}
 }

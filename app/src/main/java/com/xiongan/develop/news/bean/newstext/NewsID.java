@@ -5,6 +5,7 @@ package com.xiongan.develop.news.bean.newstext;
  */
 import java.util.List;
 public class NewsID {
+    public int readCount;
     private String body;
 
     private List<String> users ;

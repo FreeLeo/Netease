@@ -2,6 +2,8 @@ package com.xiongan.develop.news.transcation;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.unbelievable.library.android.utils.DeviceUtil;
+import com.xiongan.develop.news.MyApplication;
 import com.xiongan.develop.news.bean.OneNewsItemBean;
 import com.xiongan.develop.news.config.URLs;
 import com.xiongan.develop.news.volleyplus.BaseJsonTransaction;
@@ -17,19 +19,16 @@ import java.util.List;
  * Created by admin on 2017/5/23.
  */
 
-public class NewsListTranscation extends BaseJsonTransaction{
-    private String tid;
+public class RecommendTranscation extends BaseJsonTransaction{
     private int page;
-    public NewsListTranscation(String tid,int page,String tag,HttpCallback callback) {
+    public RecommendTranscation(int page, String tag, HttpCallback callback) {
         super(callback,tag);
-        this.tid = tid;
         this.page = page;
     }
 
     @Override
     public void prepareRequestOther() {
         setShouldCache(false);
-        setParam("tid",tid);
         setParam("start",page+"");
     }
 
@@ -44,7 +43,7 @@ public class NewsListTranscation extends BaseJsonTransaction{
 
     @Override
     public String getApiUrl() {
-        return URLs.NEWS_LIST;
+        return URLs.NEWS_RECOMMEND + DeviceUtil.getDeviceId(MyApplication.getContext()) + "/xa-news-recommend";
     }
 }
 

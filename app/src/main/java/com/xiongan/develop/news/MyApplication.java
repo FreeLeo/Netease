@@ -21,12 +21,10 @@ public class MyApplication extends Application {
         width = ScreenUtil.getWidth(this);
         height = ScreenUtil.getHeight(this);
         density = ScreenUtil.getDensity(this);
-        System.out.println(width);
-        System.out.println(height);
-        System.out.println(density);
         mInstance = this;
 
         VolleyPlus.init(this);
+        com.unbelievable.library.android.volleyplus.VolleyPlus.init(this);
         Fresco.initialize(this);
         PreferencesUtil.initialize(this);
     }

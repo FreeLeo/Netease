@@ -29,7 +29,8 @@
             android:layout_gravity="left|center_vertical"
             android:textSize="@dimen/list_content_text_size"
             android:textColor="#000"
-            />
+            android:maxLines="1"
+            android:ellipsize="end"/>
         <LinearLayout
             android:id="@+id/guide_dots"
             android:layout_width="match_parent"
