@@ -12,11 +12,11 @@ import android.widget.ImageView;
 import com.headerfooter.songhang.library.SmartRecyclerAdapter;
 import com.unbelievable.library.android.View.SwipeRefreshView;
 import com.unbelievable.library.android.utils.ToastUtils;
+import com.unbelievable.library.android.volleyplus.HttpCallback;
 import com.xiongan.develop.news.R;
 import com.xiongan.develop.news.adapter.NormalRecyclerViewAdapter;
 import com.xiongan.develop.news.bean.OneNewsItemBean;
 import com.xiongan.develop.news.transcation.HistoryTranscation;
-import com.xiongan.develop.news.volleyplus.HttpCallback;
 
 import java.util.ArrayList;
 

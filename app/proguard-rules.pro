@@ -53,7 +53,6 @@
 -dontwarn org.apache.**
 
 -keep class com.unbelievable.library.** {*;}
--keep class com.xiongan.develop.news.volleyplus.** {*;}
 
 -keepattributes Signature
 -keep class sun.misc.Unsafe { *; }

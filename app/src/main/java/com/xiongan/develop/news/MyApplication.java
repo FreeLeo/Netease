@@ -6,7 +6,6 @@ import android.content.Context;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.unbelievable.library.android.utils.PreferencesUtil;
 import com.xiongan.develop.news.util.ScreenUtil;
-import com.xiongan.develop.news.volleyplus.VolleyPlus;
 
 /**
  * Created by HHX on 15/9/12.
@@ -23,7 +22,6 @@ public class MyApplication extends Application {
         density = ScreenUtil.getDensity(this);
         mInstance = this;
 
-        VolleyPlus.init(this);
         com.unbelievable.library.android.volleyplus.VolleyPlus.init(this);
         Fresco.initialize(this);
         PreferencesUtil.initialize(this);

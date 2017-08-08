@@ -24,12 +24,12 @@ import android.widget.TextView;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.unbelievable.library.android.utils.ToastUtils;
+import com.unbelievable.library.android.volleyplus.HttpCallback;
 import com.xiongan.develop.news.R;
 import com.xiongan.develop.news.bean.newstext.Img;
 import com.xiongan.develop.news.bean.newstext.NewsID;
 import com.xiongan.develop.news.transcation.NewsDetailTranscation;
 import com.xiongan.develop.news.util.Time2String;
-import com.xiongan.develop.news.volleyplus.HttpCallback;
 import com.xiongan.develop.news.widget.PicassoImageGetter;
 
 import butterknife.BindView;

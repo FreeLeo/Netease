@@ -2,7 +2,8 @@ package com.xiongan.develop.news.fragment;
 
 import android.support.v4.app.Fragment;
 
-import com.xiongan.develop.news.volleyplus.VolleyPlus;
+import com.unbelievable.library.android.volleyplus.VolleyPlus;
+
 
 /**
  * Created by admin on 2017/7/28.

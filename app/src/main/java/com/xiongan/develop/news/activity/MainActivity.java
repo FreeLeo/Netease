@@ -20,6 +20,7 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.shizhefei.view.indicator.Indicator;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.viewpager.SViewPager;
+import com.unbelievable.library.android.volleyplus.HttpCallback;
 import com.xiongan.develop.news.R;
 import com.xiongan.develop.news.bean.UpgradeBean;
 import com.xiongan.develop.news.dialog.CommonDialog;
@@ -28,7 +29,6 @@ import com.xiongan.develop.news.fragment.MeFragment;
 import com.xiongan.develop.news.fragment.SecondLayerFragment;
 import com.xiongan.develop.news.fragment.VideoFragment;
 import com.xiongan.develop.news.transcation.UpgradeTranscation;
-import com.xiongan.develop.news.volleyplus.HttpCallback;
 
 public class MainActivity extends BaseActivity {
     private IndicatorViewPager indicatorViewPager;

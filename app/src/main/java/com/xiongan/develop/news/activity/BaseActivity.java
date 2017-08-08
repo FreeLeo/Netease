@@ -3,7 +3,7 @@ package com.xiongan.develop.news.activity;
 import android.os.Bundle;
 
 import com.umeng.analytics.MobclickAgent;
-import com.xiongan.develop.news.volleyplus.VolleyPlus;
+import com.unbelievable.library.android.volleyplus.VolleyPlus;
 
 public class BaseActivity extends com.unbelievable.library.android.app.BaseActivity {
     public final String TAG = BaseActivity.class.getSimpleName() + hashCode();

@@ -22,11 +22,11 @@ import com.shizhefei.view.indicator.ScrollIndicatorView;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import com.unbelievable.library.android.utils.PreferencesUtil;
+import com.unbelievable.library.android.volleyplus.HttpCallback;
 import com.xiongan.develop.news.R;
 import com.xiongan.develop.news.bean.NewsChannel;
 import com.xiongan.develop.news.transcation.NewsChannelsTranscation;
 import com.xiongan.develop.news.util.ScreenUtil;
-import com.xiongan.develop.news.volleyplus.HttpCallback;
 
 import java.lang.reflect.Type;
 import java.util.List;

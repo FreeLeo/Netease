@@ -2,11 +2,11 @@ package com.xiongan.develop.news.transcation;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.unbelievable.library.android.volleyplus.BaseJsonTransaction;
+import com.unbelievable.library.android.volleyplus.HttpCallback;
+import com.unbelievable.library.android.volleyplus.ResponseEntity;
 import com.xiongan.develop.news.bean.OneNewsItemBean;
 import com.xiongan.develop.news.config.URLs;
-import com.xiongan.develop.news.volleyplus.BaseJsonTransaction;
-import com.xiongan.develop.news.volleyplus.HttpCallback;
-import com.xiongan.develop.news.volleyplus.ResponseEntity;
 
 import org.json.JSONException;
 
@@ -17,7 +17,7 @@ import java.util.List;
  * Created by admin on 2017/5/23.
  */
 
-public class NewsListTranscation extends BaseJsonTransaction{
+public class NewsListTranscation extends BaseJsonTransaction {
     private String tid;
     private int page;
     public NewsListTranscation(String tid,int page,String tag,HttpCallback callback) {
