@@ -20,7 +20,6 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.shizhefei.view.indicator.Indicator;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.viewpager.SViewPager;
-import com.unbelievable.library.android.utils.ToastUtils;
 import com.xiongan.develop.news.R;
 import com.xiongan.develop.news.bean.UpgradeBean;
 import com.xiongan.develop.news.dialog.CommonDialog;
@@ -176,7 +175,6 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onFailure(int code, String msg, Object data) {
-                ToastUtils.toastS(MainActivity.this,msg);
             }
         };
         new UpgradeTranscation(getVolleyTag(),callback).excute();

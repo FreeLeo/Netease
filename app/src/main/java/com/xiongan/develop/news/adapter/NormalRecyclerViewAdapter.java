@@ -156,11 +156,12 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
                 String[] textsStrings = null;
                 if(bean.getImgextra() != null && bean.getImgextra().size() > 0) {
                     urlsStrings = new String[bean.getImgextra().size()];
-                    defaultImages2 = new int[]{defaultImage};
+                    defaultImages2 = new int[bean.getImgextra().size()];
                     textsStrings = new String[bean.getImgextra().size()];
                     for(int i=0;i<bean.getImgextra().size();i++){
                         urlsStrings[i] = bean.getImgextra().get(i).getImgsrc();
                         textsStrings[i] = bean.getTitle();
+                        defaultImages2[i] = defaultImage;
                     }
                 }
                 ((BannerViewHold) holder).mSwitchImage.initPager(defaultImages2, urlsStrings, textsStrings);
