@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:name=".MyApplication"
@@ -55,6 +54,9 @@
             android:screenOrientation="portrait"></activity>
 
         <meta-data android:value="597b18511c5dd06e330019f3" android:name="UMENG_APPKEY"/>
+        <meta-data
+            android:name="UMENG_MESSAGE_SECRET"
+            android:value="bec48d16d91922c22cda8ef20083d557" />
         <meta-data android:value="XA" android:name="UMENG_CHANNEL"/>
     </application>
 

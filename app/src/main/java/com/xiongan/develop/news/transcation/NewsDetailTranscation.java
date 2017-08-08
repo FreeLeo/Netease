@@ -5,7 +5,6 @@ import com.unbelievable.library.android.utils.DeviceUtil;
 import com.unbelievable.library.android.volleyplus.BaseJsonTransaction;
 import com.unbelievable.library.android.volleyplus.HttpCallback;
 import com.unbelievable.library.android.volleyplus.ResponseEntity;
-import com.xiongan.develop.news.MyApplication;
 import com.xiongan.develop.news.bean.newstext.NewsID;
 import com.xiongan.develop.news.config.URLs;
 
@@ -25,7 +24,7 @@ public class NewsDetailTranscation extends BaseJsonTransaction {
     @Override
     public void prepareRequestOther() {
         setShouldCache(true);
-        setParam("deviceId", DeviceUtil.getDeviceId(MyApplication.getContext()));
+        setParam("deviceId", DeviceUtil.getUniquePsuedoID());
     }
 
     @Override

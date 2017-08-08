@@ -6,7 +6,6 @@ import com.unbelievable.library.android.utils.DeviceUtil;
 import com.unbelievable.library.android.volleyplus.BaseJsonTransaction;
 import com.unbelievable.library.android.volleyplus.HttpCallback;
 import com.unbelievable.library.android.volleyplus.ResponseEntity;
-import com.xiongan.develop.news.MyApplication;
 import com.xiongan.develop.news.bean.OneNewsItemBean;
 import com.xiongan.develop.news.config.URLs;
 
@@ -43,7 +42,7 @@ public class RecommendTranscation extends BaseJsonTransaction {
 
     @Override
     public String getApiUrl() {
-        return URLs.NEWS_RECOMMEND + DeviceUtil.getDeviceId(MyApplication.getContext()) + "/xa-news-recommend";
+        return URLs.NEWS_RECOMMEND + DeviceUtil.getUniquePsuedoID() + "/xa-news-recommend";
     }
 }
 

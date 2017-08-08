@@ -3,6 +3,7 @@ package com.xiongan.develop.news.activity;
 import android.os.Bundle;
 
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
 import com.unbelievable.library.android.volleyplus.VolleyPlus;
 
 public class BaseActivity extends com.unbelievable.library.android.app.BaseActivity {
@@ -10,6 +11,7 @@ public class BaseActivity extends com.unbelievable.library.android.app.BaseActiv
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PushAgent.getInstance(this).onAppStart();
     }
 
     @Override
